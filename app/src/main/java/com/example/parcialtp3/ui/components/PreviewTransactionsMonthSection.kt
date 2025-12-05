@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.parcialtp3.R
@@ -55,7 +56,7 @@ fun TransactionsMonthSection(
                 .padding(32.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text("No se encontraron transacciones", color = OceanBlue)
+            Text(stringResource(R.string.no_se_encontraron_transacciones), color = OceanBlue)
         }
     } else {
         LazyColumn(

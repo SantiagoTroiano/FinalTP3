@@ -23,11 +23,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.Void
@@ -57,7 +59,7 @@ fun AddCategoryDialog(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "New Category",
+                    text = stringResource(R.string.new_category),
                     fontFamily = poppinsFamily,
                     fontWeight = FontWeight.Bold,
                     fontSize = 22.sp,
@@ -72,7 +74,7 @@ fun AddCategoryDialog(
                     onValueChange = { text = it },
                     placeholder = {
                         Text(
-                            "Write...",
+                            stringResource(R.string.write_suspenso),
                             color = CaribbeanGreen,
                             fontFamily = poppinsFamily
                         )
@@ -104,7 +106,7 @@ fun AddCategoryDialog(
                     )
                 ) {
                     Text(
-                        "Save",
+                        stringResource(R.string.save),
                         fontFamily = poppinsFamily,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 16.sp
@@ -126,7 +128,7 @@ fun AddCategoryDialog(
 
                     ) {
                     Text(
-                        "Cancel",
+                        stringResource(R.string.cancel),
                         fontFamily = poppinsFamily,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 16.sp

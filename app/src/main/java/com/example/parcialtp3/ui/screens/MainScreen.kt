@@ -23,18 +23,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
+import androidx.compose.ui.res.stringResource
+import com.example.parcialtp3.R
 
 data class NavItem(val label: String, val icon: ImageVector, val route: String)
 
 @Composable
 fun MainScreen(navController: NavController) {
+
     val navItems = listOf(
-        NavItem("Home", Icons.Default.Home, "HomeScreen"),
-        NavItem("Favorites", Icons.Default.Favorite, "favorites"),
-        NavItem("Add", Icons.Default.Add, "add"),
-        NavItem("Profile", Icons.Default.Person, "profile"),
-        NavItem("Settings", Icons.Default.Settings, "settings")
+        NavItem(stringResource(R.string.nav_home), Icons.Default.Home, "HomeScreen"),
+        NavItem(stringResource(R.string.nav_favorites), Icons.Default.Favorite, "favorites"),
+        NavItem(stringResource(R.string.nav_add), Icons.Default.Add, "add"),
+        NavItem(stringResource(R.string.nav_profile), Icons.Default.Person, "profile"),
+        NavItem(stringResource(R.string.nav_settings), Icons.Default.Settings, "settings")
     )
+
     var selectedItem by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -48,14 +52,14 @@ fun MainScreen(navController: NavController) {
             }
         }
     ) { innerPadding ->
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
-            // Content of the selected screen
-            Text(text = "Screen ${navItems[selectedItem].label}")
+            Text(text = stringResource(R.string.screen_label, navItems[selectedItem].label))
         }
     }
 }

@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -39,90 +40,91 @@ fun Medicine_Add_Expenses_Screen(
         headerHeight = 180.dp,
         headerContent = {
             HeaderBar(
-                title = "Add Expenses",
+                title = stringResource(R.string.add_expenses),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
         },
-    panelContent = {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+        panelContent = {
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 20.dp, vertical = 16.dp)
+                    .fillMaxSize()
             ) {
-                RoundedInputRow(
-                    label = "Date",
-                    value = "April 30, 2024",
-                    valueColor = Void,
-                    trailing = {
-                        Box(
-                            modifier = Modifier
-                                .clip(CircleShape)
-                                .background(CaribbeanGreen)
-                                .height(30.dp)
-                                .padding(4.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.vector_calendar),
-                                contentDescription = null,
-                                tint = FenceGreen,
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(rememberScrollState())
+                        .padding(horizontal = 20.dp, vertical = 16.dp)
+                ) {
+                    RoundedInputRow(
+                        label = stringResource(R.string.date),
+                        value = stringResource(R.string.april_30_2024),
+                        valueColor = Void,
+                        trailing = {
+                            Box(
                                 modifier = Modifier
-                                    .padding(horizontal = 4.dp)
+                                    .clip(CircleShape)
+                                    .background(CaribbeanGreen)
+                                    .height(30.dp)
+                                    .padding(4.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.vector_calendar),
+                                    contentDescription = null,
+                                    tint = FenceGreen,
+                                    modifier = Modifier
+                                        .padding(horizontal = 4.dp)
+                                )
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    RoundedInputRow(
+                        label = stringResource(R.string.category),
+                        value = stringResource(R.string.select_the_category),
+                        valueColor = Cyprus,
+                        trailing = {
+                            Icon(
+                                painter = painterResource(id = R.drawable.vector_down),
+                                contentDescription = null
                             )
                         }
-                    }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                RoundedInputRow(
-                    label = "Category",
-                    value = "Select the category",
-                    valueColor = Cyprus,
-                    trailing = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.vector_down),
-                            contentDescription = null
-                        )
-                    }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    RoundedInputRow(
+                        label = stringResource(R.string.amount),
+                        value = stringResource(R.string.amount_minus_2_00),
+                        valueColor = Void
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                RoundedInputRow(
-                    label = "Amount",
-                    value = "$2,00",
-                    valueColor = Void
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    RoundedInputRow(
+                        label = stringResource(R.string.expense_title),
+                        value = stringResource(R.string.acetaminophen),
+                        valueColor = Void
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                RoundedInputRow(
-                    label = "Expense Title",
-                    value = "Acetaminophen",
-                    valueColor = Void
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    MessageBox(label = stringResource(R.string.enter_message))
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
 
-                MessageBox(label = "Enter Message")
-                Spacer(modifier = Modifier.height(12.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 26.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.save),
+                        onClick = {  }
+                    )
+                }
             }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 26.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                PrimaryButton(
-                    text = "Save",
-                    onClick = {  }
-                )
-            }
-        }
-    })
+        })
 }
+
 

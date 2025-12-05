@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,16 +24,17 @@ import com.example.parcialtp3.ui.viewmodels.TransactionsViewModel
 @Composable
 fun Transactions_Screen(navController: NavHostController) {
     val viewModel: TransactionsViewModel = viewModel()
-        BackgroundScaffold(
-            current = "Tranasctions_Screen",
-            navController = navController,
-            headerHeight = 410.dp,
-            whiteHeight = Dp.Unspecified,
-            headerContent = { Transactions_Header(navController) },
-            panelContent = {
-                TransactionsMonthSection(viewModel = viewModel)
-            }
-        )
+
+    BackgroundScaffold(
+        current = "Tranasctions_Screen",
+        navController = navController,
+        headerHeight = 410.dp,
+        whiteHeight = Dp.Unspecified,
+        headerContent = { Transactions_Header(navController) },
+        panelContent = {
+            TransactionsMonthSection(viewModel = viewModel)
+        }
+    )
 }
 
 @Composable
@@ -41,27 +43,27 @@ fun Transactions_Header(navController: NavHostController) {
         modifier = Modifier.fillMaxSize()
     ) {
         HeaderBar(
-            title = "Transaction",
+            title = stringResource(R.string.transactions_title),
             navController = navController,
             onBackClick = { navController.popBackStack() }
         )
 
         CabeceraTransactions(
             navController = navController,
-            tarjetaBalanceText1 = "Total Balance",
-            tarjetaBalanceText2 = "$7,783.00",
+            tarjetaBalanceText1 = stringResource(R.string.transactions_total_balance),
+            tarjetaBalanceText2 = stringResource(R.string.transactions_balance_value),
             tarjeta1Direccion = "Income_Screen",
             tarjeta1Color = Honeydew,
             tarjeta1Imagen = R.drawable.group_395,
-            tarjeta1Texto1 = "Income",
-            tarjeta1Texto2 = "$4,120.00",
+            tarjeta1Texto1 = stringResource(R.string.transactions_income),
+            tarjeta1Texto2 = stringResource(R.string.transactions_income_value),
             tarjeta1Texto1Color = Void,
             tarjeta1Texto2Color = Void,
             tarjeta2Direccion = "Expense_Screen",
             tarjeta2Color = Honeydew,
             tarjeta2Imagen = R.drawable.group_396,
-            tarjeta2Texto1 = "Expense",
-            tarjeta2Texto2 = "$1,187.40",
+            tarjeta2Texto1 = stringResource(R.string.transactions_expense),
+            tarjeta2Texto2 = stringResource(R.string.transactions_expense_value),
             tarjeta2Texto1Color = Void,
             tarjeta2Texto2Color = OceanBlue
         )

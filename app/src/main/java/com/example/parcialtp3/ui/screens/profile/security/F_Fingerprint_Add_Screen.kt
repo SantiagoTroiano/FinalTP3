@@ -13,11 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.Void
 import com.example.parcialtp3.ui.components.BackgroundScaffold
@@ -36,7 +38,7 @@ fun F_Fingerprint_Add_Screen(
         headerContent = {
             HeaderBar(
                 navController = navController,
-                title = "Add Fingerprint",
+                title = stringResource(R.string.add_fingerprint_title),
                 onBackClick = { navController.popBackStack() }
             )
         },
@@ -49,14 +51,12 @@ fun F_Fingerprint_Add_Screen(
             ) {
                 Spacer(Modifier.height(24.dp))
 
-                // Ícono grande
                 LargeFingerprintIcon()
 
                 Spacer(Modifier.height(50.dp))
 
-                // Título
                 Text(
-                    text = "Use Fingerprint  To Access",
+                    text = stringResource(R.string.add_fingerprint_header),
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
@@ -66,9 +66,8 @@ fun F_Fingerprint_Add_Screen(
 
                 Spacer(Modifier.height(20.dp))
 
-                // Descripción (placeholder)
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+                    text = stringResource(R.string.add_fingerprint_description),
                     style = MaterialTheme.typography.bodyMedium,
                     color = Void.copy(alpha = 0.8f),
                     lineHeight = 18.sp,
@@ -93,7 +92,7 @@ fun F_Fingerprint_Add_Screen(
                     elevation = ButtonDefaults.buttonElevation(defaultElevation = 0.dp)
                 ) {
                     Text(
-                        text = "Use Touch Id",
+                        text = stringResource(R.string.add_fingerprint_touchid_button),
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontSize = 16.sp,
                             fontWeight = FontWeight.SemiBold

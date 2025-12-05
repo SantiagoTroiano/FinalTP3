@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.components.BackgroundScaffold
 import com.example.parcialtp3.ui.components.FacebookGoogle
@@ -36,23 +38,28 @@ fun SecurityPinScreen(
 
 @Composable
 private fun Title() {
-    TitleText("Security Pin", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 18.dp))
+    TitleText(
+        text = stringResource(R.string.security_pin_title),
+        fontWeight = FontWeight.SemiBold,
+        modifier = Modifier.padding(top = 18.dp)
+    )
 }
+
 @Composable
 private fun Body(
     navController: NavHostController
 ) {
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 35.dp)
             .padding(top = 50.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ){
+    ) {
         TitleText(
-            "Enter Security Pin",
+            text = stringResource(R.string.enter_security_pin),
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(top = 18.dp), // 2. Ya no necesita .align()
+            modifier = Modifier.padding(top = 18.dp),
             fontSize = 20.sp
         )
         Spacer(Modifier.height(50.dp))
@@ -64,24 +71,27 @@ private fun Body(
         Spacer(Modifier.height(50.dp))
 
         RoundedButton(
-            "Accept",
+            text = stringResource(R.string.accept_button),
             onClick = {},
             width = 169.dp,
             height = 32.dp,
             navController = navController,
             route = "NewPasswordScreen"
         )
+
         Spacer(Modifier.height(10.dp))
 
         RoundedButton(
-            "Send Again",
+            text = stringResource(R.string.send_again_button),
             backgroundColor = LightGreen,
             onClick = {},
             width = 169.dp,
             height = 32.dp,
             navController = navController
         )
+
         Spacer(Modifier.height(200.dp))
+
         FacebookGoogle(navController)
     }
 }

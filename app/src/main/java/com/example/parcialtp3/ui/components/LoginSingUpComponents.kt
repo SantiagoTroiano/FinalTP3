@@ -40,6 +40,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -127,7 +128,7 @@ fun RoundedInputField(
 fun RoundedPassInput(
     modifier: Modifier = Modifier,
     backgroundColor: Color = LightGreen,
-    label: String = "Password",
+    label: String = stringResource(R.string.password),
     textColor: Color = Color(0xFF1A1A1A),
     placeholderColor: Color = Color(0xFF7C8A86),
     labelPaddingLeft: Dp = 20.dp,
@@ -238,7 +239,7 @@ fun FacebookGoogle(
     val themeColors = ThemeAwareColors.getColors()
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        SimpleText("or sign up with", fontSize = 13.sp, fontWeight = FontWeight.Light)
+        SimpleText(stringResource(R.string.or_sign_up_with), fontSize = 13.sp, fontWeight = FontWeight.Light)
         Spacer(Modifier.height(13.dp))
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -261,13 +262,13 @@ fun FacebookGoogle(
         Spacer(Modifier.height(30.dp))
         Text(
             buildAnnotatedString {
-                append("Don’t have an account? ")
+                append(stringResource(R.string.don_t_have_an_account))
                 withStyle(
                     style = SpanStyle(
                         color = themeColors.highlightText2,
                     )
                 ) {
-                    append("Sign Up")
+                    append(stringResource(R.string.sign_up))
                 }
             },
             fontSize = 13.sp,

@@ -20,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -45,29 +46,45 @@ fun SavingsScreen(
 
     var showAddCategoryDialog by remember { mutableStateOf(false) }
 
-
     val primaryColor = Color(0xFF006BFF)
     val secondaryColor = Color(0xFF87C8FF)
 
     val categories = listOf(
-        SavingCategoryUi("travel", "Travel", R.drawable.vector_plane, true, direccion = "travel"),
-        SavingCategoryUi("new_house", "New House", R.drawable.vector_newhouse, direccion = "newHouse"),
-        SavingCategoryUi("car", "Car", R.drawable.vector_car, direccion = "car"),
-        SavingCategoryUi("wedding", "Wedding", R.drawable.vector_wedding, direccion = "wedding"),
+        SavingCategoryUi(
+            "travel",
+            title = stringResource(R.string.travel),
+            iconRes = R.drawable.vector_plane,
+            isPrimary = true,
+            direccion = "travel"
+        ),
+        SavingCategoryUi(
+            "new_house",
+            title = stringResource(R.string.new_house),
+            iconRes = R.drawable.vector_newhouse,
+            direccion = "newHouse"
+        ),
+        SavingCategoryUi(
+            "car",
+            title = stringResource(R.string.car),
+            iconRes = R.drawable.vector_car,
+            direccion = "car"
+        ),
+        SavingCategoryUi(
+            "wedding",
+            title = stringResource(R.string.wedding),
+            iconRes = R.drawable.vector_wedding,
+            direccion = "wedding"
+        ),
     )
 
     if (showAddCategoryDialog) {
         AddCategoryDialog(
-            onDismissRequest = {
-                showAddCategoryDialog = false
-            },
+            onDismissRequest = { showAddCategoryDialog = false },
             onConfirm = { categoryName ->
-
                 showAddCategoryDialog = false
             }
         )
     }
-
 
     BackgroundScaffold(
         navController = navController,
@@ -75,7 +92,7 @@ fun SavingsScreen(
         headerContent = {
             Column {
                 HeaderBar(
-                    title = "Savings",
+                    title = stringResource(R.string.savings),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )
@@ -101,20 +118,14 @@ fun SavingsScreen(
                             title = item.title,
                             iconRes = item.iconRes,
                             backgroundColor = if (item.isPrimary) primaryColor else secondaryColor,
-                            onClick = {
-                                navController.navigate(item.direccion)
-                            }
+                            onClick = { navController.navigate(item.direccion) }
                         )
                     }
                 }
 
                 PrimaryButton(
-                    text = "Add More",
-
-                    onClick = {
-                        showAddCategoryDialog = true
-                    },
-
+                    text = stringResource(R.string.add_more),
+                    onClick = { showAddCategoryDialog = true },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 16.dp, bottom = 8.dp)

@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -73,7 +74,7 @@ fun SavingsTargetSummaryGeneric(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "Goal",
+                        text = stringResource(R.string.goal),
                         style = TextStyle(
                             fontFamily = poppinsFamily,
                             fontWeight = FontWeight.Normal,
@@ -100,7 +101,7 @@ fun SavingsTargetSummaryGeneric(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "Amount Saved",
+                        text = stringResource(R.string.amount_saved),
                         style = TextStyle(
                             fontFamily = poppinsFamily,
                             fontWeight = FontWeight.Normal,
@@ -204,7 +205,7 @@ fun SavingsTargetSummaryGeneric(
         Spacer(modifier = Modifier.height(10.dp))
 
         Text(
-            text = "30% Of Your Expenses, Looks Good.",
+            text = stringResource(R.string._30_of_your_expenses_looks_good),
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             style = TextStyle(

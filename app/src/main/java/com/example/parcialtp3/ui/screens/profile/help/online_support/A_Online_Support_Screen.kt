@@ -3,34 +3,21 @@ package com.example.parcialtp3.ui.screens.profile.help.online_support
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.Honeydew
@@ -46,7 +33,7 @@ private data class SupportChatUi(
     val id: String,
     val title: String,
     val subtitle: String,
-    val rightPillText: String, // "2 Min Ago" o "Feb 08 · 2024"
+    val rightPillText: String
 )
 
 /* =========================== SCREEN ============================ */
@@ -63,7 +50,7 @@ fun A_Online_Support_Screen(
         whiteHeight = Dp.Unspecified,
         headerContent = {
             HeaderBar(
-                title = "Online Support",
+                title = stringResource(R.string.online_support_title),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -77,15 +64,15 @@ fun A_Online_Support_Screen(
                 Spacer(Modifier.height(12.dp))
 
                 // Active
-                SectionTitle(text = "Active Chats")
+                SectionTitle(text = stringResource(R.string.online_support_active_chats))
                 Spacer(Modifier.height(10.dp))
 
                 ChatRow(
                     chat = SupportChatUi(
                         id = "active-1",
-                        title = "Support Assistant",
-                        subtitle = "Hello! I'm here to assist you",
-                        rightPillText = "2 Min Ago"
+                        title = stringResource(R.string.online_support_support_assistant),
+                        subtitle = stringResource(R.string.online_support_sub_support_hello),
+                        rightPillText = stringResource(R.string.online_support_2min)
                     ),
                     onClick = onOpenChat
                 )
@@ -93,33 +80,33 @@ fun A_Online_Support_Screen(
                 Spacer(Modifier.height(18.dp))
 
                 // Ended
-                SectionTitle(text = "Ended Chats")
+                SectionTitle(text = stringResource(R.string.online_support_ended_chats))
                 Spacer(Modifier.height(10.dp))
 
                 val ended = listOf(
                     SupportChatUi(
                         id = "end-1",
-                        title = "Help Center",
-                        subtitle = "Your account is ready to use…",
-                        rightPillText = "Feb 08 · 2024"
+                        title = stringResource(R.string.online_support_help_center),
+                        subtitle = stringResource(R.string.online_support_sub_account_ready),
+                        rightPillText = stringResource(R.string.online_support_feb_08)
                     ),
                     SupportChatUi(
                         id = "end-2",
-                        title = "Support Assistant",
-                        subtitle = "Hello! I'm here to assist you",
-                        rightPillText = "Dec 24 · 2023"
+                        title = stringResource(R.string.online_support_support_assistant),
+                        subtitle = stringResource(R.string.online_support_sub_support_hello),
+                        rightPillText = stringResource(R.string.online_support_dec_24)
                     ),
                     SupportChatUi(
                         id = "end-3",
-                        title = "Support Assistant",
-                        subtitle = "Hello! I'm here to assist you",
-                        rightPillText = "Sep 10 · 2023"
+                        title = stringResource(R.string.online_support_support_assistant),
+                        subtitle = stringResource(R.string.online_support_sub_support_hello),
+                        rightPillText = stringResource(R.string.online_support_sep_10)
                     ),
                     SupportChatUi(
                         id = "end-4",
-                        title = "Help Center",
-                        subtitle = "Hi, how are you today?",
-                        rightPillText = "June 12 · 2023"
+                        title = stringResource(R.string.online_support_help_center),
+                        subtitle = stringResource(R.string.online_support_sub_how_are_you),
+                        rightPillText = stringResource(R.string.online_support_june_12)
                     )
                 )
 
@@ -145,7 +132,7 @@ fun A_Online_Support_Screen(
                     )
                 ) {
                     Text(
-                        text = "Start Another Chat",
+                        text = stringResource(R.string.online_support_start_another_chat),
                         fontFamily = poppinsFamily,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -188,7 +175,6 @@ private fun ChatRow(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Leading icon (en badge Honeydew)
             Box(
                 modifier = Modifier
                     .size(44.dp)
@@ -197,7 +183,7 @@ private fun ChatRow(
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.icon_bonsupport_caribbeangreen /* o el que tengas: icon_botsupport_caribbeangreen */),
+                    painter = painterResource(id = R.drawable.icon_bonsupport_caribbeangreen),
                     contentDescription = null,
                     modifier = Modifier.size(45.dp)
                 )
@@ -206,8 +192,7 @@ private fun ChatRow(
             Spacer(Modifier.width(12.dp))
 
             Column(
-                modifier = Modifier
-                    .weight(1f)
+                modifier = Modifier.weight(1f)
             ) {
                 Text(
                     text = chat.title,
@@ -232,7 +217,6 @@ private fun ChatRow(
 
             Spacer(Modifier.width(8.dp))
 
-            // Right pill
             DatePill(text = chat.rightPillText)
         }
     }
@@ -255,17 +239,4 @@ private fun DatePill(text: String) {
             fontSize = 11.sp
         )
     }
-}
-
-/* ============================================== */
-
-@Preview(showBackground = true, name = "Online Support")
-@Composable
-private fun Preview_OnlineSupport() {
-    val nav = rememberNavController()
-    A_Online_Support_Screen(
-        navController = nav,
-        onStartNewChat = {},
-        onOpenChat = {}
-    )
 }

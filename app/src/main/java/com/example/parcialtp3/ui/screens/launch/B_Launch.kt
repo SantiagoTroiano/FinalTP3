@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -44,14 +45,14 @@ fun LaunchScreen(navController: NavHostController) {
 
             Image(
                 painter = painterResource(id = R.drawable.ic_grafico),
-                contentDescription = "FinWise logo",
+                contentDescription = stringResource(R.string.launch_logo_cd),
                 modifier = Modifier.size(120.dp)
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "FinWise",
+                text = stringResource(R.string.launch_title),
                 fontSize = 58.sp,
                 fontWeight = FontWeight.Bold,
                 color = CaribbeanGreen,
@@ -61,7 +62,7 @@ fun LaunchScreen(navController: NavHostController) {
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+                text = stringResource(R.string.launch_description),
                 fontSize = 14.sp,
                 color = Void,
                 textAlign = TextAlign.Center,
@@ -71,7 +72,6 @@ fun LaunchScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            // LOG IN → pasa por OnBoarding y luego a WelcomeScreen
             Button(
                 onClick = {
                     navController.navigate("OnBoardingPagerScreen?next=WelcomeScreen") {
@@ -84,12 +84,16 @@ fun LaunchScreen(navController: NavHostController) {
                     .fillMaxWidth(0.6f)
                     .height(48.dp)
             ) {
-                Text("Log In",fontSize = 25.sp, color = Void, fontWeight = FontWeight.Bold)
+                Text(
+                    stringResource(R.string.launch_login),
+                    fontSize = 25.sp,
+                    color = Void,
+                    fontWeight = FontWeight.Bold
+                )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // SIGN UP → pasa por OnBoarding y luego a CreateAccountScreen
             Button(
                 onClick = {
                     navController.navigate("OnBoardingPagerScreen?next=CreateAccountScreen") {
@@ -102,14 +106,18 @@ fun LaunchScreen(navController: NavHostController) {
                     .fillMaxWidth(0.6f)
                     .height(48.dp)
             ) {
-                Text("Sign Up", fontSize = 25.sp, color = FenceGreen, fontWeight = FontWeight.Bold)
+                Text(
+                    stringResource(R.string.launch_signup),
+                    fontSize = 25.sp,
+                    color = FenceGreen,
+                    fontWeight = FontWeight.Bold
+                )
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // FORGOT PASSWORD
             Text(
-                text = "Forgot Password?",
+                text = stringResource(R.string.launch_forgot_password),
                 color = Void,
                 fontSize = 13.sp,
                 fontFamily = poppinsFamily,

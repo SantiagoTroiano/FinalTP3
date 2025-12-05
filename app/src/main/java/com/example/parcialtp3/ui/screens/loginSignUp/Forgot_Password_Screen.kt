@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.components.BackgroundScaffold
 import com.example.parcialtp3.ui.components.FacebookGoogle
@@ -35,10 +37,16 @@ fun ForgotPasswordScreen(
         panelContent = { Body(navController) }
     )
 }
+
 @Composable
 private fun Title() {
-    TitleText("Forgot Password", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 18.dp))
+    TitleText(
+        text = stringResource(R.string.forgot_password_title),
+        fontWeight = FontWeight.SemiBold,
+        modifier = Modifier.padding(top = 18.dp)
+    )
 }
+
 @Composable
 private fun Body(
     navController: NavHostController
@@ -50,27 +58,31 @@ private fun Body(
             .padding(top = 50.dp)
     ) {
         TitleText(
-            "Reset Password?",
+            text = stringResource(R.string.forgot_reset_title),
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(top = 18.dp), // Ya no necesita .align()
+            modifier = Modifier.padding(top = 18.dp),
             fontSize = 20.sp
         )
         Spacer(Modifier.height(20.dp))
 
         SimpleText(
-            text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-            textAlign = TextAlign.Start, // Alineado a la izquierda
+            text = stringResource(R.string.forgot_description),
+            textAlign = TextAlign.Start,
             fontSize = 11.sp,
             fontWeight = FontWeight.Normal
         )
         Spacer(Modifier.height(70.dp))
 
-        RoundedInputField("Enter email address", "example@example.com", labelPaddingLeft = 0.dp)
+        RoundedInputField(
+            label = stringResource(R.string.forgot_email_label),
+            placeholder = stringResource(R.string.forgot_email_placeholder),
+            labelPaddingLeft = 0.dp
+        )
 
         Spacer(Modifier.height(45.dp))
 
         RoundedButton(
-            "Next Step",
+            text = stringResource(R.string.forgot_next_step),
             onClick = {},
             width = 169.dp,
             height = 32.dp,
@@ -79,8 +91,9 @@ private fun Body(
             route = "SecurityPinScreen"
         )
         Spacer(Modifier.height(110.dp))
+
         RoundedButton(
-            "Sign Up",
+            text = stringResource(R.string.forgot_sign_up),
             backgroundColor = LightGreen,
             onClick = {},
             width = 169.dp,
@@ -89,6 +102,7 @@ private fun Body(
             navController = navController,
             route = "CreateAccountScreen"
         )
+
         Spacer(Modifier.height(25.dp))
         FacebookGoogle(navController)
     }

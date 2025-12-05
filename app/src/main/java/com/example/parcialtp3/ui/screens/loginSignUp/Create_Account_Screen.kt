@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.ThemeAwareColors
 import com.example.parcialtp3.ui.components.BackgroundScaffold
 import com.example.parcialtp3.ui.components.PoppinsFamily
@@ -54,30 +56,56 @@ fun CreateAccountScreen(
         headerContent = { Title() },
         panelContent = {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                RoundedInputField("Full Name", "John Doe", onTextChanged = { fullName = it })
+
+                RoundedInputField(
+                    label = stringResource(R.string.create_full_name),
+                    placeholder = stringResource(R.string.create_full_name_placeholder),
+                    onTextChanged = { fullName = it }
+                )
                 Spacer(Modifier.height(15.dp))
-                RoundedInputField("Email", "example@example.com", onTextChanged = { email = it })
+
+                RoundedInputField(
+                    label = stringResource(R.string.create_email),
+                    placeholder = stringResource(R.string.create_email_placeholder),
+                    onTextChanged = { email = it }
+                )
                 Spacer(Modifier.height(15.dp))
-                RoundedInputField("Mobile Number", "+ 123 456 789", onTextChanged = { phone = it })
+
+                RoundedInputField(
+                    label = stringResource(R.string.create_mobile),
+                    placeholder = stringResource(R.string.create_mobile_placeholder),
+                    onTextChanged = { phone = it }
+                )
                 Spacer(Modifier.height(15.dp))
-                RoundedInputField("Date of birth", "DD / MM / YYY", onTextChanged = { dob = it })
+
+                RoundedInputField(
+                    label = stringResource(R.string.create_dob),
+                    placeholder = stringResource(R.string.create_dob_placeholder),
+                    onTextChanged = { dob = it }
+                )
                 Spacer(Modifier.height(15.dp))
+
                 RoundedPassInput(onTextChanged = { pass1 = it })
                 Spacer(Modifier.height(15.dp))
-                RoundedPassInput(label = "Confirm Password", onTextChanged = { pass2 = it })
+
+                RoundedPassInput(
+                    label = stringResource(R.string.create_confirm_password),
+                    onTextChanged = { pass2 = it }
+                )
                 Spacer(Modifier.height(20.dp))
+
                 Text(
                     text = buildAnnotatedString {
-                        append("By continuing, you agree to\n")
-
+                        append(stringResource(R.string.create_terms_prefix))
+                        append("\n")
                         withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
-                            append("Terms of Use")
+                            append(stringResource(R.string.create_terms_terms))
                         }
-
-                        append(" and ")
-
+                        append(" ")
+                        append(stringResource(R.string.create_terms_and))
+                        append(" ")
                         withStyle(style = SpanStyle(fontWeight = FontWeight.SemiBold)) {
-                            append("Privacy Policy.")
+                            append(stringResource(R.string.create_terms_privacy))
                         }
                     },
                     color = themeColors.normalText,
@@ -86,11 +114,14 @@ fun CreateAccountScreen(
                     fontSize = 14.sp,
                     textAlign = TextAlign.Center
                 )
+
                 Spacer(Modifier.height(15.dp))
+
                 RoundedButton(
-                    "Sign Up",
+                    text = stringResource(R.string.create_signup),
                     onClick = { vm.createAccount(fullName, email, phone, pass2) },
-                    width = 207.dp, height = 45.dp,
+                    width = 207.dp,
+                    height = 45.dp,
                     navController = navController,
                     route = "HomeScreen"
                 )
@@ -99,32 +130,34 @@ fun CreateAccountScreen(
                 lastUser?.let {}
 
                 Spacer(Modifier.height(15.dp))
+
                 Text(
-                    buildAnnotatedString {
-                        append("Already have an account? ")
+                    text = buildAnnotatedString {
+                        append(stringResource(R.string.create_already_have))
                         withStyle(
-                            style = SpanStyle(
-                                color = themeColors.highlightText2,
-                            )
+                            style = SpanStyle(color = themeColors.highlightText2)
                         ) {
-                            append("Sign In")
+                            append(stringResource(R.string.create_signin))
                         }
                     },
                     fontSize = 13.sp,
                     color = themeColors.normalText,
                     fontWeight = FontWeight.Light,
                     fontFamily = PoppinsFamily,
-                    modifier = Modifier.clickable(
-                        onClick = {
-                            navController.navigate("WelcomeScreen")
-                        }
-                    )
+                    modifier = Modifier.clickable {
+                        navController.navigate("WelcomeScreen")
+                    }
                 )
             }
         }
     )
 }
+
 @Composable
 private fun Title() {
-    TitleText("Create Account", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 18.dp))
+    TitleText(
+        text = stringResource(R.string.create_title),
+        fontWeight = FontWeight.SemiBold,
+        modifier = Modifier.padding(top = 18.dp)
+    )
 }

@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -39,9 +40,11 @@ fun Profile_Screen(navController: NavHostController) {
         headerHeight = 200.dp,
         whiteHeight = Dp.Unspecified,
         headerContent = {
-            HeaderBar(title = "Profile", navController = navController, onBackClick = {
-                navController.popBackStack()
-            })
+            HeaderBar(
+                title = stringResource(R.string.profile_title),
+                navController = navController,
+                onBackClick = { navController.popBackStack() }
+            )
         },
         panelContent = {
             Column(
@@ -54,27 +57,29 @@ fun Profile_Screen(navController: NavHostController) {
 
                 Spacer(Modifier.height(20.dp))
 
-                ProfileOption(iconRes = R.drawable.icon_profile,
-                    label = "Edit Profile",
-                    onClick = {navController.navigate("edit_profile")}
+                ProfileOption(
+                    iconRes = R.drawable.icon_profile,
+                    label = stringResource(R.string.profile_edit_profile),
+                    onClick = { navController.navigate("edit_profile") }
                 )
                 ProfileOption(
                     iconRes = R.drawable.icon_security,
-                    label = "Security",
-                    onClick = {navController.navigate("security")}
+                    label = stringResource(R.string.profile_security),
+                    onClick = { navController.navigate("security") }
                 )
                 ProfileOption(
                     iconRes = R.drawable.icon_setting,
-                    label = "Setting",
-                    onClick = {navController.navigate("settings")}
+                    label = stringResource(R.string.profile_setting),
+                    onClick = { navController.navigate("settings") }
                 )
-                ProfileOption(iconRes = R.drawable.icon_help,
-                    label = "Help",
-                    onClick = {navController.navigate("help_center")}
+                ProfileOption(
+                    iconRes = R.drawable.icon_help,
+                    label = stringResource(R.string.profile_help),
+                    onClick = { navController.navigate("help_center") }
                 )
                 ProfileOption(
                     iconRes = R.drawable.icon_logout,
-                    label = "Logout",
+                    label = stringResource(R.string.profile_logout),
                     onClick = { showDialog.value = true }
                 )
             }
@@ -92,7 +97,7 @@ fun Profile_Screen(navController: NavHostController) {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     RoundedButton(
-                        text = "Yes, End Session",
+                        text = stringResource(R.string.profile_end_session_yes),
                         width = 207.dp,
                         height = 45.dp,
                         backgroundColor = CaribbeanGreen,
@@ -104,7 +109,7 @@ fun Profile_Screen(navController: NavHostController) {
                     Spacer(Modifier.height(10.dp))
 
                     RoundedButton(
-                        text = "Cancel",
+                        text = stringResource(R.string.profile_cancel),
                         width = 207.dp,
                         height = 45.dp,
                         backgroundColor = LightGreen,
@@ -116,7 +121,7 @@ fun Profile_Screen(navController: NavHostController) {
             },
             title = {
                 Text(
-                    text = "End Session",
+                    text = stringResource(R.string.profile_end_session_title),
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
@@ -126,7 +131,7 @@ fun Profile_Screen(navController: NavHostController) {
             },
             text = {
                 Text(
-                    text = "Are you sure you want to log out?",
+                    text = stringResource(R.string.profile_end_session_message),
                     textAlign = TextAlign.Center,
                     color = Void,
                     modifier = Modifier.fillMaxWidth()

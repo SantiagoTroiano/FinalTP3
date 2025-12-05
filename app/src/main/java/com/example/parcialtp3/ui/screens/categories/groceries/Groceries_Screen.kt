@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -27,18 +28,39 @@ fun GroceriesScreen(
     navController: NavHostController
 ) {
     val marchExpenses = listOf(
-        GroceriesExpense("Pantry", "17:00 - March 24", "-$26,00"),
-        GroceriesExpense("Snacks", "17:02 - March 24", "-$18,35")
+        GroceriesExpense(
+            title = stringResource(R.string.pantry),
+            time = stringResource(R.string.time_17_00_march_24),
+            amount = stringResource(R.string.amount_minus_26_00)
+        ),
+        GroceriesExpense(
+            title = stringResource(R.string.snacks),
+            time = stringResource(R.string.time_17_02_march_24),
+            amount = stringResource(R.string.amount_minus_18_35)
+        )
     )
+
     val februaryExpenses = listOf(
-        GroceriesExpense("Canned Food", "18:30 - February 28", "-$15,40"),
-        GroceriesExpense("Veeggies", "18:31 - February 28", "-$12,13"),
-        GroceriesExpense("Groceries", "18:31 - February 28", "-$27,20")
+        GroceriesExpense(
+            title = stringResource(R.string.canned_food),
+            time = stringResource(R.string.time_18_30_feb_28),
+            amount = stringResource(R.string.amount_minus_15_40)
+        ),
+        GroceriesExpense(
+            title = stringResource(R.string.veggies),
+            time = stringResource(R.string.time_18_31_feb_28),
+            amount = stringResource(R.string.amount_minus_12_13)
+        ),
+        GroceriesExpense(
+            title = stringResource(R.string.groceries),
+            time = stringResource(R.string.time_18_31_feb_28_b),
+            amount = stringResource(R.string.amount_minus_27_20)
+        )
     )
 
     val allMonthlyExpenses = listOf(
-        MonthlyExpenseGroup("March", marchExpenses),
-        MonthlyExpenseGroup("February", februaryExpenses)
+        MonthlyExpenseGroup(stringResource(R.string.march), marchExpenses),
+        MonthlyExpenseGroup(stringResource(R.string.february), februaryExpenses)
     )
 
     BackgroundScaffold(
@@ -51,7 +73,7 @@ fun GroceriesScreen(
                     .padding(horizontal = 20.dp)
             ) {
                 HeaderBar(
-                    title = "Groceries",
+                    title = stringResource(R.string.groceries),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )
@@ -64,7 +86,7 @@ fun GroceriesScreen(
                 monthlyExpenses = allMonthlyExpenses,
                 iconResId = R.drawable.vector_groceries,
                 onAddExpense = {
-                    navController?.navigate("groceries/addExpense")
+                    navController.navigate("groceries/addExpense")
                 },
                 expenseData = { expense ->
                     Triple(expense.title, expense.time, expense.amount)
