@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -29,7 +30,10 @@ import com.example.parcialtp3.ui.components.SettingsSwitchRow
 import com.example.parcialtp3.ui.components.SimpleText
 
 @Composable
-fun Edit_Profile_Screen(navController: NavHostController,viewModel: ThemeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun Edit_Profile_Screen(
+    navController: NavHostController,
+    viewModel: ThemeViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+) {
     val pushNotificationsEnabled = remember { mutableStateOf(true) }
     val darkThemeState = viewModel.darkThemeEnabled.collectAsState()
 
@@ -39,7 +43,7 @@ fun Edit_Profile_Screen(navController: NavHostController,viewModel: ThemeViewMod
         whiteHeight = Dp.Unspecified,
         headerContent = {
             HeaderBar(
-                title = "Edit My Profile",
+                title = stringResource(R.string.edit_profile_title),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -55,7 +59,7 @@ fun Edit_Profile_Screen(navController: NavHostController,viewModel: ThemeViewMod
                 Spacer(Modifier.height(30.dp))
 
                 SimpleText(
-                    text = "Account Settings",
+                    text = stringResource(R.string.edit_profile_account_settings),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                     textAlign = TextAlign.Start,
@@ -65,21 +69,42 @@ fun Edit_Profile_Screen(navController: NavHostController,viewModel: ThemeViewMod
                 )
 
                 Spacer(Modifier.height(25.dp))
-                RoundedInputField("Username", "John Smith")
+
+                // Username
+                RoundedInputField(
+                    label = stringResource(R.string.edit_profile_username),
+                    placeholder = "John Smith",
+                    onTextChanged = {}
+                )
+
                 Spacer(Modifier.height(20.dp))
-                RoundedInputField("Phone", "+44 555 5555 55")
+
+                // Phone
+                RoundedInputField(
+                    label = stringResource(R.string.edit_profile_phone),
+                    placeholder = "+44 555 5555 55",
+                    onTextChanged = {}
+                )
+
                 Spacer(Modifier.height(20.dp))
-                RoundedInputField("Email Address", "example@example.com")
+
+                // Email
+                RoundedInputField(
+                    label = stringResource(R.string.edit_profile_email),
+                    placeholder = "example@example.com",
+                    onTextChanged = {}
+                )
 
                 Spacer(Modifier.height(35.dp))
+
                 SettingsSwitchRow(
-                    label = "Push Notifications",
+                    label = stringResource(R.string.edit_profile_push_notifications),
                     checked = pushNotificationsEnabled.value,
                     onCheckedChange = { pushNotificationsEnabled.value = it }
                 )
 
                 SettingsSwitchRow(
-                    label = "Turn Dark Theme",
+                    label = stringResource(R.string.edit_profile_turn_dark_theme),
                     checked = darkThemeState.value,
                     onCheckedChange = { viewModel.toggleTheme(it) }
                 )
@@ -87,7 +112,7 @@ fun Edit_Profile_Screen(navController: NavHostController,viewModel: ThemeViewMod
                 Spacer(Modifier.height(20.dp))
 
                 RoundedButton(
-                    text = "Update Profile",
+                    text = stringResource(R.string.edit_profile_update_button),
                     width = 207.dp,
                     height = 45.dp,
                     backgroundColor = CaribbeanGreen,

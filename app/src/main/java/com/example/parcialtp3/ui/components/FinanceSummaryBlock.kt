@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -27,13 +28,13 @@ import com.example.parcialtp3.ui.poppinsFamily
 @Composable
 fun FinanceSummaryBlock(
     modifier: Modifier = Modifier,
-    balanceLabel: String = "Total Balance",
-    balanceAmount: String = "$7,783.00",
-    expenseLabel: String = "Total Expense",
-    expenseAmount: String = "-$1,187.40",
+    balanceLabel: String = stringResource(R.string.total_balance),
+    balanceAmount: String = stringResource(R.string._7_783_00),
+    expenseLabel: String = stringResource(R.string.total_expense),
+    expenseAmount: String = stringResource(R.string._1_187_40),
     progressFraction: Float = 0.30f,
-    progressLabel: String = "30%",
-    goalAmount: String = "$20,000.00",
+    progressLabel: String = stringResource(R.string._30),
+    goalAmount: String = stringResource(R.string._20_000_00),
 ) {
     val themeColors = ThemeAwareColors.getColors()
     Column(
@@ -217,7 +218,7 @@ fun FinanceSummaryBlock(
             )
             Spacer(Modifier.width(8.dp))
             Text(
-                text = "30% Of Your Expenses, Looks Good.",
+                text = stringResource(R.string._30_of_your_expenses_looks_good),
                 textAlign = TextAlign.Center,
                 style = TextStyle(
                     fontFamily = poppinsFamily,

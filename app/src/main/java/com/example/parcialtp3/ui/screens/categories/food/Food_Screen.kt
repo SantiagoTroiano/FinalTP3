@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -27,13 +28,19 @@ fun FoodScreen(
     navController: NavHostController
 ) {
     val aprilExpenses = listOf(
-        FoodExpense("Dinner", "18:27 - April 30", "-$26,00"),
-        FoodExpense("Delivery Pizza", "15:00 - April 24", "-$18,35"),
-        FoodExpense("Lunch", "12:30 - April 15", "-$15,40"),
-        FoodExpense("Brunch", "9:30 - April 08", "-$12,13"),
+        FoodExpense(stringResource(R.string.dinner), stringResource(R.string._18_27_april_30), stringResource(R.string._26_00)),
+        FoodExpense(stringResource(R.string.delivery_pizza), stringResource(R.string._15_00_april_24), stringResource(R.string._18_35)),
+        FoodExpense(stringResource(R.string.lunch),
+            stringResource(R.string._12_30_april_15), stringResource(R.string._15_40)
+        ),
+        FoodExpense(stringResource(R.string.brunch),
+            stringResource(R.string._9_30_april_08), stringResource(R.string._12_13)
+        ),
     )
     val marchExpenses = listOf(
-        FoodExpense("Dinner", "20:50 - March 31", "-$27,20")
+        FoodExpense(stringResource(R.string.dinner),
+            stringResource(R.string._20_50_march_31), stringResource(R.string._27_20)
+        )
     )
 
 

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -27,18 +28,39 @@ fun TransportScreen(
     navController: NavHostController
 ) {
     val marchExpenses = listOf(
-        TransportExpense("Fuel", "18:27 - March 30", "-$3.53"),
-        TransportExpense("Car Parts", "15:00 - March 30", "-$28.75")
+        TransportExpense(
+            title = stringResource(R.string.fuel),
+            time = stringResource(R.string.time_18_27_march_30),
+            amount = stringResource(R.string.amount_3_53)
+        ),
+        TransportExpense(
+            title = stringResource(R.string.car_parts),
+            time = stringResource(R.string.time_15_00_march_30),
+            amount = stringResource(R.string.amount_28_75)
+        )
     )
+
     val februaryExpenses = listOf(
-        TransportExpense("New Tires", "12:47 - February 10", "-$373.99"),
-        TransportExpense("Car Wash", "9:50 - February 09", "-$9.74"),
-        TransportExpense("Public Transport", "7:50 - February 01", "-$1.24")
+        TransportExpense(
+            title = stringResource(R.string.new_tires),
+            time = stringResource(R.string.time_12_47_february_10),
+            amount = stringResource(R.string.amount_373_99)
+        ),
+        TransportExpense(
+            title = stringResource(R.string.car_wash),
+            time = stringResource(R.string.time_9_50_february_09),
+            amount = stringResource(R.string.amount_9_74)
+        ),
+        TransportExpense(
+            title = stringResource(R.string.public_transport),
+            time = stringResource(R.string.time_7_50_february_01),
+            amount = stringResource(R.string.amount_1_24)
+        )
     )
 
     val allMonthlyExpenses = listOf(
-        MonthlyExpenseGroup("March", marchExpenses),
-        MonthlyExpenseGroup("February", februaryExpenses)
+        MonthlyExpenseGroup(stringResource(R.string.month_march), marchExpenses),
+        MonthlyExpenseGroup(stringResource(R.string.month_february), februaryExpenses)
     )
 
     BackgroundScaffold(
@@ -51,7 +73,7 @@ fun TransportScreen(
                     .padding(horizontal = 20.dp)
             ) {
                 HeaderBar(
-                    title = "Transport",
+                    title = stringResource(R.string.transport),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )

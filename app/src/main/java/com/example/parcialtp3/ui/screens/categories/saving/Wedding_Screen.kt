@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -32,22 +33,33 @@ fun WeddingScreen(
 ) {
     val weddingIcon = R.drawable.vector_wedding
 
-
     val novemberDeposits = listOf(
-        WeddingDeposit("Wedding Deposit", "18:46 - November 15", "$87.32", weddingIcon)
+        WeddingDeposit(
+            title = stringResource(R.string.wedding_deposit),
+            time = stringResource(R.string.november_15_time),
+            amount = stringResource(R.string.amount_87_32),
+            iconRes = weddingIcon
+        )
     )
-
 
     val septemberDeposits = listOf(
-        WeddingDeposit("Wedding Deposit", "21:45 - September 30", "$22.99", weddingIcon),
-        WeddingDeposit("Wedding Deposit", "12:25 - September 15", "$185.94", weddingIcon)
+        WeddingDeposit(
+            title = stringResource(R.string.wedding_deposit),
+            time = stringResource(R.string.september_30_time),
+            amount = stringResource(R.string.amount_22_99),
+            iconRes = weddingIcon
+        ),
+        WeddingDeposit(
+            title = stringResource(R.string.wedding_deposit),
+            time = stringResource(R.string.september_15_time),
+            amount = stringResource(R.string.amount_185_94),
+            iconRes = weddingIcon
+        )
     )
 
-
-
     val monthSections = mapOf(
-        "November" to novemberDeposits,
-        "September" to septemberDeposits
+        stringResource(R.string.november) to novemberDeposits,
+        stringResource(R.string.september) to septemberDeposits
     )
 
     BackgroundScaffold(
@@ -55,7 +67,7 @@ fun WeddingScreen(
         headerHeight = 120.dp,
         headerContent = {
             HeaderBar(
-                title = "Wedding",
+                title = stringResource(R.string.wedding),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -64,10 +76,10 @@ fun WeddingScreen(
             Column(Modifier.fillMaxWidth()) {
                 Spacer(Modifier.height(16.dp))
                 SavingsTargetSummaryGeneric(
-                    title = "Wedding",
+                    title = stringResource(R.string.wedding),
                     iconRes = weddingIcon,
-                    goalAmount = "$34,700",
-                    savedAmount = "$296.25",
+                    goalAmount = stringResource(R.string.goal_34700),
+                    savedAmount = stringResource(R.string.saved_296_25),
                     progressPercent = 0.10f,
                     progressColor = CaribbeanGreen,
                     modifier = Modifier.padding(horizontal = 20.dp)
@@ -79,7 +91,7 @@ fun WeddingScreen(
                     amount = { it.amount },
                     iconRes = { it.iconRes },
                     onAddSavingsClick = {
-                         navController.navigate("wedding/addSavings")
+                        navController.navigate("wedding/addSavings")
                     }
                 )
             }

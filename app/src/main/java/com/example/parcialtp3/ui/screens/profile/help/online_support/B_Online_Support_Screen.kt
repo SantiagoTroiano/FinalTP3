@@ -3,45 +3,26 @@ package com.example.parcialtp3.ui.screens.profile.help.online_support
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.Honeydew
@@ -71,18 +52,26 @@ fun B_Online_Support_Screen(
     var tab by remember { mutableStateOf(ChatTab.ASSISTANT) }
     var input by remember { mutableStateOf("") }
 
+    val msg1 = stringResource(R.string.msg_1)
+    val msg2 = stringResource(R.string.msg_2)
+    val msg3 = stringResource(R.string.msg_3)
+    val msg4 = stringResource(R.string.msg_4)
+    val msg5 = stringResource(R.string.msg_5)
+    val msg6 = stringResource(R.string.msg_6)
+    val msg7 = stringResource(R.string.msg_7)
+
     val messages = remember(tab) {
-        // Mock según la vista de referencia
         listOf(
-            ChatMessage("1", "Welcome, I am your virtual assistant.", "14:00", fromMe = false),
-            ChatMessage("2", "How can I help you today?", "14:00", fromMe = false),
-            ChatMessage("3", "Hello! I have a question. How can I record my expenses by date?", "14:01", fromMe = true),
-            ChatMessage("4", "Response to your request:\nYou can register expenses in the top menu of the homepage.", "14:03", fromMe = false),
-            ChatMessage("5", "Enter the purchase information, including the date, etc.", "14:03", fromMe = false),
-            ChatMessage("6", "OK, thanks a lot.", "14:05", fromMe = true),
-            ChatMessage("7", "It was a pleasure to accommodate your request. See you soon!", "14:06", fromMe = false),
+            ChatMessage("1", msg1, "14:00", false),
+            ChatMessage("2", msg2, "14:00", false),
+            ChatMessage("3", msg3, "14:01", true),
+            ChatMessage("4", msg4, "14:03", false),
+            ChatMessage("5", msg5, "14:03", false),
+            ChatMessage("6", msg6, "14:05", true),
+            ChatMessage("7", msg7, "14:06", false),
         )
     }
+
 
     BackgroundScaffold(
         navController = navController,
@@ -90,7 +79,7 @@ fun B_Online_Support_Screen(
         whiteHeight = Dp.Unspecified,
         headerContent = {
             HeaderBar(
-                title = "Online Support",
+                title = stringResource(R.string.online_support_title),
                 navController = navController,
                 onBackClick = { navController.popBackStack() },
             )
@@ -103,7 +92,6 @@ fun B_Online_Support_Screen(
             ) {
                 Spacer(Modifier.height(12.dp))
 
-                // Tabs
                 ChatTabs(
                     selected = tab,
                     onSelect = { tab = it },
@@ -112,10 +100,8 @@ fun B_Online_Support_Screen(
 
                 Spacer(Modifier.height(12.dp))
 
-                // Messages
                 val listState = rememberLazyListState()
                 LaunchedEffect(messages.size) {
-                    // scrollear al final cada vez que cambian los mensajes
                     if (messages.isNotEmpty()) listState.scrollToItem(messages.lastIndex)
                 }
 
@@ -129,17 +115,15 @@ fun B_Online_Support_Screen(
                             MessageBubble(message = msg)
                         }
 
-                        // "Chat Ended" pill (opcional)
                         item {
                             Spacer(Modifier.height(4.dp))
-                            EndPill(text = "14:06  |  Chat Ended")
+                            EndPill(text = "14:06  |  ${stringResource(R.string.online_support_chat_ended)}")
                         }
                     }
                 }
 
                 Spacer(Modifier.height(8.dp))
 
-                // Input bar
                 ChatInputBar(
                     value = input,
                     onValueChange = { input = it },
@@ -191,16 +175,14 @@ private fun ChatTabs(
                             fontFamily = poppinsFamily,
                             fontWeight = if (isSel) FontWeight.SemiBold else FontWeight.Medium,
                             color = Void,
-                            fontSize = 13.sp,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                            fontSize = 13.sp
                         )
                     }
                 }
             }
 
-            TabItem(ChatTab.ASSISTANT, "Support Assistant")
-            TabItem(ChatTab.HELP_CENTER, "Help Center")
+            TabItem(ChatTab.ASSISTANT, stringResource(R.string.online_support_tab_assistant))
+            TabItem(ChatTab.HELP_CENTER, stringResource(R.string.online_support_tab_help_center))
         }
     }
 }
@@ -208,7 +190,6 @@ private fun ChatTabs(
 @Composable
 private fun MessageBubble(message: ChatMessage) {
     val bubbleColor = if (message.fromMe) CaribbeanGreen else LightGreen
-    val textColor = Void
 
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -217,13 +198,12 @@ private fun MessageBubble(message: ChatMessage) {
         Surface(
             color = bubbleColor,
             shape = RoundedCornerShape(22.dp),
-            modifier = Modifier
-                .widthIn(min = 80.dp, max = 280.dp)
+            modifier = Modifier.widthIn(min = 80.dp, max = 280.dp)
         ) {
             Text(
                 text = message.text,
                 modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp),
-                color = textColor,
+                color = Void,
                 fontFamily = poppinsFamily,
                 fontSize = 13.sp,
                 lineHeight = 18.sp,
@@ -244,14 +224,13 @@ private fun MessageBubble(message: ChatMessage) {
 @Composable
 private fun EndPill(text: String) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier
                 .clip(RoundedCornerShape(12.dp))
-                .background(LightGreen),
+                .background(LightGreen)
         ) {
             Text(
                 text = text,
@@ -274,7 +253,6 @@ private fun ChatInputBar(
     onSend: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Contenedor principal VERDE (pill)
     Surface(
         color = CaribbeanGreen,
         shape = RoundedCornerShape(20.dp),
@@ -288,7 +266,6 @@ private fun ChatInputBar(
                 .padding(horizontal = 12.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Icono izquierda (cámara/adjunto) en badge claro
             ActionSquare(
                 icon = R.drawable.icon_camera_honeydew,
                 onClick = onAttach,
@@ -298,7 +275,6 @@ private fun ChatInputBar(
 
             Spacer(Modifier.width(8.dp))
 
-// Campo de texto BLANCO
             Surface(
                 color = Color.White,
                 shape = RoundedCornerShape(18.dp),
@@ -306,7 +282,6 @@ private fun ChatInputBar(
                     .weight(1f)
                     .height(44.dp)
             ) {
-                // Usamos BasicTextField para controlar el padding exacto
                 androidx.compose.foundation.text.BasicTextField(
                     value = value,
                     onValueChange = onValueChange,
@@ -319,12 +294,12 @@ private fun ChatInputBar(
                     cursorBrush = androidx.compose.ui.graphics.SolidColor(Void),
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(horizontal = 12.dp, vertical = 10.dp), // <-- centra visualmente
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
                     decorationBox = { inner ->
                         Box(Modifier.fillMaxSize(), contentAlignment = Alignment.CenterStart) {
                             if (value.isEmpty()) {
                                 Text(
-                                    "Write here…",
+                                    stringResource(R.string.online_support_write_here),
                                     fontFamily = poppinsFamily,
                                     color = Void.copy(alpha = .5f),
                                     fontSize = 13.sp
@@ -336,10 +311,8 @@ private fun ChatInputBar(
                 )
             }
 
-
             Spacer(Modifier.width(8.dp))
 
-            // Iconos derecha en badges claros
             ActionSquare(
                 icon = R.drawable.icon_microphone_honeydew,
                 onClick = onVoice,
@@ -356,7 +329,6 @@ private fun ChatInputBar(
         }
     }
 }
-
 
 @Composable
 private fun ActionSquare(
@@ -380,14 +352,4 @@ private fun ActionSquare(
             )
         }
     }
-}
-
-/* =========================== PREVIEW =========================== */
-
-@Preview(showBackground = true, showSystemUi = true, name = "Online Support - Chat")
-@Composable
-private fun Preview_B_Online_Support() {
-    B_Online_Support_Screen(
-        navController = rememberNavController(),
-    )
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -37,14 +38,16 @@ fun OnBoardingBScreen(navController: NavHostController, nextRoute: String) {
         navController = navController,
         displayBottomNavBar = false,
         headerHeight = 308.dp,
+
         headerContent = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize()
             ) {
                 Spacer(modifier = Modifier.height(60.dp))
+
                 Text(
-                    text = "Are You Ready To\nTake Control Of\nYour Finances?",
+                    text = stringResource(R.string.onboarding_b_title),
                     fontSize = 32.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = Void,
@@ -53,51 +56,49 @@ fun OnBoardingBScreen(navController: NavHostController, nextRoute: String) {
                 )
             }
         },
-            panelContent = {
 
-                Box(
+        panelContent = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .background(
+                        color = Honeydew,
+                        shape = RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight()
-                        .background(
-                            color = Honeydew,
-                            shape = RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp)
-                        ),
-                    contentAlignment = Alignment.Center
+                        .padding(top = 60.dp, bottom = 40.dp)
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
+                    Image(
+                        painter = painterResource(id = R.drawable.onboarding_phone),
+                        contentDescription = stringResource(R.string.onboarding_b_phone_desc),
+                        modifier = Modifier.size(280.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(35.dp))
+
+                    Text(
+                        text = stringResource(R.string.onboarding_b_next),
+                        fontSize = 28.sp,
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = poppinsFamily,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 60.dp, bottom = 40.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.onboarding_phone),
-                            contentDescription = "Phone illustration",
-                            modifier = Modifier.size(280.dp)
-                        )
-
-                        Spacer(modifier = Modifier.height(35.dp))
-
-                        // Texto "Next" que actúa como botón
-                        Text(
-                            text = "Next",
-                            fontSize = 28.sp,
-                            color = Color.Black,
-                            fontWeight = FontWeight.Bold,
-                            fontFamily = poppinsFamily,
-                            modifier = Modifier
-                                .clickable {
-                                    navController.navigate(nextRoute) {
-                                        popUpTo("launch") { inclusive = true }
-                                    }
+                            .clickable {
+                                navController.navigate(nextRoute) {
+                                    popUpTo("launch") { inclusive = true }
                                 }
-                                .padding(bottom = 8.dp)
-                        )
-                    }
+                            }
+                            .padding(bottom = 8.dp)
+                    )
                 }
-
+            }
         }
-        )
+    )
 }

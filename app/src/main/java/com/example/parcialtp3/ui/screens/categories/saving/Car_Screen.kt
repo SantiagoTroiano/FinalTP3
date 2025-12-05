@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -33,13 +34,28 @@ fun CarScreen(
     val carIcon = R.drawable.vector_car
 
     val aprilDeposits = listOf(
-        CarDeposit("Car Deposit", "14:16 - July 5", "$387.32", carIcon),
-        CarDeposit("Car Deposit", "21:45 - May 30", "$122,99", carIcon),
-        CarDeposit("House deposit", "14:25 - May 05", "$85.94", carIcon)
+        CarDeposit(
+            title = stringResource(R.string.car_deposit),
+            time = stringResource(R.string.time_july_5_1416),
+            amount = stringResource(R.string.amount_387_32),
+            iconRes = carIcon
+        ),
+        CarDeposit(
+            title = stringResource(R.string.car_deposit),
+            time = stringResource(R.string.time_may_30_2145),
+            amount = stringResource(R.string.amount_122_99),
+            iconRes = carIcon
+        ),
+        CarDeposit(
+            title = stringResource(R.string.house_deposit),
+            time = stringResource(R.string.time_may_05_1425),
+            amount = stringResource(R.string.amount_85_94),
+            iconRes = carIcon
+        )
     )
 
     val monthSections = mapOf(
-        "April" to aprilDeposits
+        stringResource(R.string.april) to aprilDeposits
     )
 
     BackgroundScaffold(
@@ -47,7 +63,7 @@ fun CarScreen(
         headerHeight = 120.dp,
         headerContent = {
             HeaderBar(
-                title = "Car",
+                title = stringResource(R.string.car),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -55,15 +71,17 @@ fun CarScreen(
         panelContent = {
             Column(Modifier.fillMaxWidth()) {
                 Spacer(Modifier.height(16.dp))
+
                 SavingsTargetSummaryGeneric(
-                    title = "Car",
+                    title = stringResource(R.string.car),
                     iconRes = carIcon,
-                    goalAmount = "$14,390",
-                    savedAmount = "$596.25",
+                    goalAmount = stringResource(R.string.goal_14390),
+                    savedAmount = stringResource(R.string.saved_596_25),
                     progressPercent = 0.15f,
                     progressColor = CaribbeanGreen,
                     modifier = Modifier.padding(horizontal = 20.dp)
                 )
+
                 SavingsDepositPanel(
                     monthSections = monthSections,
                     title = { it.title },

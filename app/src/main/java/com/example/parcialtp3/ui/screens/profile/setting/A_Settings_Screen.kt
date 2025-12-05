@@ -2,14 +2,7 @@ package com.example.parcialtp3.ui.screens.profile.setting
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -44,7 +38,7 @@ fun A_Settings_Screen(
         whiteHeight = Dp.Unspecified,
         headerContent = {
             HeaderBar(
-                title = "Settings",
+                title = stringResource(R.string.settings_title),
                 navController = navController,
                 onBackClick = onBack
             )
@@ -59,21 +53,21 @@ fun A_Settings_Screen(
 
                 SettingsRow(
                     iconRes = R.drawable.icon_notification_caribbeangreen,
-                    label = "Notification Settings",
+                    label = stringResource(R.string.settings_notification),
                     onClick = onNotification
                 )
                 SettingsDivider()
 
                 SettingsRow(
                     iconRes = R.drawable.icon_key_caribbeangreen,
-                    label = "Password Settings",
+                    label = stringResource(R.string.settings_password),
                     onClick = onPassword
                 )
                 SettingsDivider()
 
                 SettingsRow(
                     iconRes = R.drawable.icon_notification_caribbeangreen,
-                    label = "Delete Account",
+                    label = stringResource(R.string.settings_delete_account),
                     onClick = onDeleteAccount
                 )
                 SettingsDivider()

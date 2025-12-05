@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -40,7 +41,7 @@ fun Gifts_Add_Expenses_Screen(
         headerHeight = 180.dp,
         headerContent = {
             HeaderBar(
-                title = "Add Expenses",
+                title = stringResource(R.string.add_expenses),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -56,8 +57,8 @@ fun Gifts_Add_Expenses_Screen(
                     .padding(horizontal = 20.dp, vertical = 16.dp)
             ) {
                 RoundedInputRow(
-                    label = "Date",
-                    value = "April 28, 2024",
+                    label = stringResource(R.string.date),
+                    value = stringResource(R.string.april_28_2024),
                     valueColor = Void,
                     trailing = {
                         Box(
@@ -78,13 +79,13 @@ fun Gifts_Add_Expenses_Screen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 RoundedInputRow(
-                    label = "Category",
-                    value = "Select the category",
+                    label = stringResource(R.string.category),
+                    value = stringResource(R.string.select_the_category),
                     valueColor = Cyprus,
                     trailing = {
                         Icon(
                             painter = painterResource(id = R.drawable.vector_down),
-                            contentDescription = "down",
+                            contentDescription = "Down",
                             tint = androidx.compose.ui.graphics.Color.Unspecified,
                             modifier = Modifier.size(16.dp)
                         )
@@ -92,18 +93,18 @@ fun Gifts_Add_Expenses_Screen(
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 RoundedInputRow(
-                    label = "Amount",
-                    value = "$30,00",
+                    label = stringResource(R.string.amount),
+                    value = stringResource(R.string._30_00),
                     valueColor = Void
                 )
                Spacer(modifier = Modifier.height(16.dp))
                 RoundedInputRow(
-                    label = "Expense Title",
-                    value = "Perfume",
+                    label = stringResource(R.string.expense_title),
+                    value = stringResource(R.string.perfume),
                     valueColor = Void
                 )
                Spacer(modifier = Modifier.height(16.dp))
-                MessageBox(label = "Enter Message")
+                MessageBox(label = stringResource(R.string.enter_message))
            Spacer(modifier = Modifier.height(12.dp))
             }
             Box(
@@ -113,7 +114,7 @@ fun Gifts_Add_Expenses_Screen(
                 contentAlignment = Alignment.Center
             ) {
                 PrimaryButton(
-                    text = "Save",
+                    text = stringResource(R.string.save),
                     onClick = { }
                 )
             }

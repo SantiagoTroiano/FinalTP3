@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -27,23 +28,42 @@ fun RentScreen(
     navController: NavHostController
 ) {
     val aprilExpenses = listOf(
-        RentExpense("Rent", "18:27 - April 15", "-$674,40")
+        RentExpense(
+            title = stringResource(R.string.rent),
+            time = stringResource(R.string.rent_time_april),
+            amount = stringResource(R.string.amount_674_40)
+        )
     )
+
     val marchExpenses = listOf(
-        RentExpense("Rent", "15:00 - March 15", "-$674,40")
+        RentExpense(
+            title = stringResource(R.string.rent),
+            time = stringResource(R.string.rent_time_march),
+            amount = stringResource(R.string.amount_674_40)
+        )
     )
+
     val februaryExpenses = listOf(
-        RentExpense("Rent", "11:47 - February 15", "-$674,40")
+        RentExpense(
+            title = stringResource(R.string.rent),
+            time = stringResource(R.string.rent_time_february),
+            amount = stringResource(R.string.amount_674_40)
+        )
     )
+
     val januaryExpenses = listOf(
-        RentExpense("Rent", "18:50 - January 15", "-$674,40")
+        RentExpense(
+            title = stringResource(R.string.rent),
+            time = stringResource(R.string.rent_time_january),
+            amount = stringResource(R.string.amount_674_40)
+        )
     )
 
     val allMonthlyExpenses = listOf(
-        MonthlyExpenseGroup("April", aprilExpenses),
-        MonthlyExpenseGroup("March", marchExpenses),
-        MonthlyExpenseGroup("February", februaryExpenses),
-        MonthlyExpenseGroup("January", januaryExpenses)
+        MonthlyExpenseGroup(stringResource(R.string.april), aprilExpenses),
+        MonthlyExpenseGroup(stringResource(R.string.march), marchExpenses),
+        MonthlyExpenseGroup(stringResource(R.string.february), februaryExpenses),
+        MonthlyExpenseGroup(stringResource(R.string.january), januaryExpenses)
     )
 
     BackgroundScaffold(
@@ -56,7 +76,7 @@ fun RentScreen(
                     .padding(horizontal = 20.dp)
             ) {
                 HeaderBar(
-                    title = "Rent",
+                    title = stringResource(R.string.rent),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )

@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -40,7 +41,7 @@ fun A_Security_Screen(
         headerContent = {
             HeaderBar(
                 navController = navController,
-                title = "Security",
+                title = stringResource(R.string.security_title),
                 onBackClick = { navController.popBackStack() }
             )
         },
@@ -51,29 +52,29 @@ fun A_Security_Screen(
                     .padding(horizontal = 20.dp)
             ) {
                 Spacer(Modifier.height(12.dp))
+
                 Text(
-                    text = "Security",
+                    text = stringResource(R.string.security_title),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     color = Void
                 )
                 Spacer(Modifier.height(8.dp))
 
-                //Lista de opciones
                 SecurityOptionRow(
-                    label = "Change Pin",
+                    label = stringResource(R.string.security_change_pin),
                     onClick = onChangePin
                 )
                 SecurityDivider()
 
                 SecurityOptionRow(
-                    label = "Fingerprint",
+                    label = stringResource(R.string.security_fingerprint),
                     onClick = onFingerprint
                 )
                 SecurityDivider()
 
                 SecurityOptionRow(
-                    label = "Terms And Conditions",
+                    label = stringResource(R.string.security_terms),
                     onClick = onTerms
                 )
                 SecurityDivider()

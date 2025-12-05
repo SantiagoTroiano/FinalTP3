@@ -7,11 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.Void
@@ -20,11 +22,11 @@ import com.example.parcialtp3.ui.poppinsFamily
 @Composable
 fun ConfirmDeleteDialog(
     visible: Boolean,
-    title: String = "Delete Account",
-    subtitle: String = "Are You Sure You Want To Log Out?",
+    title: String = stringResource(R.string.delete_account),
+    subtitle: String = stringResource(R.string.are_you_sure_you_want_to_log_out),
     body: String =
-        "By deleting your account, you agree that you understand the consequences of this action " +
-                "and that you agree to permanently delete your account and all associated data.",
+        stringResource(R.string.by_deleting_your_account) +
+                stringResource(R.string.and_that_you_agree),
     onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -82,7 +84,7 @@ fun ConfirmDeleteDialog(
                         contentColor = Void
                     )
                 ) {
-                    Text("Yes, Delete Account", style = MaterialTheme.typography.bodyMedium)
+                    Text(stringResource(R.string.yes_delete_account), style = MaterialTheme.typography.bodyMedium)
                 }
 
                 Spacer(Modifier.height(10.dp))
@@ -99,7 +101,11 @@ fun ConfirmDeleteDialog(
                         contentColor = Void
                     )
                 ) {
-                    Text("Cancel", style = MaterialTheme.typography.bodyMedium)
+                    Text(
+                        text = stringResource(R.string.cancel),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
                 }
             }
         }

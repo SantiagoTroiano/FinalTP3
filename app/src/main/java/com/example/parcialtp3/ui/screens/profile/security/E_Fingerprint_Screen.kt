@@ -16,11 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.Void
@@ -31,7 +33,7 @@ import com.example.parcialtp3.ui.components.LargeFingerprintIcon
 @Composable
 fun E_Fingerprint_Screen(
     navController: NavHostController,
-    title: String = "Jhon Fingerprint",
+    title: String = stringResource(R.string.fingerprint_default_title),
     onDelete: () -> Unit = {}
 ) {
     BackgroundScaffold(
@@ -42,7 +44,7 @@ fun E_Fingerprint_Screen(
             HeaderBar(
                 navController = navController,
                 title = title,
-                onBackClick = { navController.popBackStack() },
+                onBackClick = { navController.popBackStack() }
             )
         },
         panelContent = {
@@ -77,7 +79,6 @@ fun E_Fingerprint_Screen(
                     }
                 }
 
-
                 Spacer(Modifier.height(90.dp))
 
                 Button(
@@ -92,9 +93,9 @@ fun E_Fingerprint_Screen(
                     )
                 ) {
                     Text(
-                        "Delete",
+                        text = stringResource(R.string.fingerprint_delete),
                         style = MaterialTheme.typography.bodyLarge.copy(
-                            fontSize = 18.sp,               // ↑ antes default (~16sp)
+                            fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold
                         )
                     )
