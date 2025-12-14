@@ -3,6 +3,7 @@ package com.example.parcialtp3.ui.screens.transactions
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -40,7 +41,7 @@ fun Transactions_Screen(navController: NavHostController) {
 @Composable
 fun Transactions_Header(navController: NavHostController) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxWidth()    // ← IMPORTANTISIMO
     ) {
         HeaderBar(
             title = stringResource(R.string.transactions_title),
@@ -52,6 +53,7 @@ fun Transactions_Header(navController: NavHostController) {
             navController = navController,
             tarjetaBalanceText1 = stringResource(R.string.transactions_total_balance),
             tarjetaBalanceText2 = stringResource(R.string.transactions_balance_value),
+
             tarjeta1Direccion = "Income_Screen",
             tarjeta1Color = Honeydew,
             tarjeta1Imagen = R.drawable.group_395,
@@ -59,6 +61,7 @@ fun Transactions_Header(navController: NavHostController) {
             tarjeta1Texto2 = stringResource(R.string.transactions_income_value),
             tarjeta1Texto1Color = Void,
             tarjeta1Texto2Color = Void,
+
             tarjeta2Direccion = "Expense_Screen",
             tarjeta2Color = Honeydew,
             tarjeta2Imagen = R.drawable.group_396,

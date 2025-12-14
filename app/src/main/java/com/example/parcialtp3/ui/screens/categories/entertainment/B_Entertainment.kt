@@ -48,18 +48,13 @@ fun B_Entertainment(
                 onBackClick = { navController.popBackStack() }
             )
         },
-        panelContent =
-     {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+        panelContent = {
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 16.dp)
             ) {
+
                 RoundedInputRow(
                     label = stringResource(R.string.date),
                     value = stringResource(R.string.april_29_2024),
@@ -81,10 +76,11 @@ fun B_Entertainment(
                         }
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Category",
+                    label = stringResource(R.string.category),
                     value = stringResource(R.string.select_the_category),
                     valueColor = Cyprus,
                     trailing = {
@@ -96,13 +92,15 @@ fun B_Entertainment(
                         )
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Amount",
+                    label = stringResource(R.string.amount),
                     value = "30,00",
                     valueColor = Void
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
@@ -110,26 +108,25 @@ fun B_Entertainment(
                     value = "Cinema",
                     valueColor = Void
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 MessageBox(
                     label = stringResource(R.string.enter_message)
                 )
-                Spacer(modifier = Modifier.height(12.dp))
-            }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 26.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                PrimaryButton(
-                    text = stringResource(R.string.save),
-                    onClick = { navController?.popBackStack() }
-                )
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.save),
+                        onClick = { navController.popBackStack() }
+                    )
+                }
             }
         }
-    }
     )
 }

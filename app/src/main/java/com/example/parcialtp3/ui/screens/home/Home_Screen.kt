@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -103,7 +104,6 @@ fun HomeScreen(navController: NavHostController) {
                                 text = stringResource(R.string.home_good_morning),
                                 color = Void,
                                 fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.Normal,
                                 fontSize = 13.sp
                             )
                         }
@@ -133,13 +133,13 @@ fun HomeScreen(navController: NavHostController) {
 
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                 ) {
 
                     Surface(
                         color = CaribbeanGreen,
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
+                        shape = RoundedCornerShape(20.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 6.dp)
@@ -278,14 +278,13 @@ fun HomeScreen(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // Filters
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 12.dp)
                             .background(
                                 color = LightGreen,
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
+                                shape = RoundedCornerShape(24.dp)
                             )
                             .padding(horizontal = 6.dp, vertical = 6.dp)
                     ) {
@@ -305,7 +304,7 @@ fun HomeScreen(navController: NavHostController) {
 
                                 Surface(
                                     color = if (isSelected) CaribbeanGreen else Color.Transparent,
-                                    shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
+                                    shape = RoundedCornerShape(20.dp),
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(46.dp)
@@ -327,14 +326,14 @@ fun HomeScreen(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // Transactions list
-                    LazyColumn(
+                    // REEMPLAZA LAZY COLUMN POR COLUMN
+                    Column(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 4.dp),
-                        contentPadding = PaddingValues(bottom = 100.dp)
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 100.dp)
                     ) {
-                        items(transactions) { t ->
+
+                        transactions.forEach { t ->
 
                             Row(
                                 modifier = Modifier
@@ -343,7 +342,6 @@ fun HomeScreen(navController: NavHostController) {
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
 
-                                // Icon
                                 Box(
                                     modifier = Modifier
                                         .size(44.dp)
@@ -364,10 +362,8 @@ fun HomeScreen(navController: NavHostController) {
 
                                 Spacer(modifier = Modifier.width(14.dp))
 
-                                // Title and subtitle
                                 Column(
-                                    modifier = Modifier.weight(1.3f),
-                                    verticalArrangement = Arrangement.Center
+                                    modifier = Modifier.weight(1.3f)
                                 ) {
                                     Text(
                                         text = stringResource(t.title),
@@ -376,7 +372,9 @@ fun HomeScreen(navController: NavHostController) {
                                         fontWeight = FontWeight.SemiBold,
                                         fontSize = 15.sp
                                     )
+
                                     Spacer(modifier = Modifier.height(2.dp))
+
                                     Text(
                                         text = stringResource(t.subtitle),
                                         color = OceanBlue,
@@ -392,7 +390,6 @@ fun HomeScreen(navController: NavHostController) {
                                         .background(CaribbeanGreen.copy(alpha = 0.5f))
                                 )
 
-                                // Category
                                 Box(
                                     modifier = Modifier
                                         .weight(0.8f)
@@ -415,7 +412,6 @@ fun HomeScreen(navController: NavHostController) {
                                         .background(CaribbeanGreen.copy(alpha = 0.5f))
                                 )
 
-                                // Amount
                                 Box(
                                     modifier = Modifier
                                         .weight(1f)
