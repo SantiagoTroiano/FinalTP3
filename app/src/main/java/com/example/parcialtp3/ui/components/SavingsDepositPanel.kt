@@ -4,14 +4,15 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+// import androidx.compose.foundation.lazy.LazyColumn <-- ELIMINADO
+// import androidx.compose.foundation.lazy.itemsIndexed <-- ELIMINADO
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -32,75 +33,70 @@ fun <T> SavingsDepositPanel(
     iconRes: (T) -> Int,
     onAddSavingsClick: () -> Unit
 ) {
+    // Usamos Column normal. El scroll ya lo provee el BackgroundScaffold padre.
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp) // Padding general
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
-            contentPadding = PaddingValues(bottom = 12.dp)
-        ) {
-            monthSections.forEach { (month, deposits) ->
+        // Iteramos sobre las secciones (Meses)
+        monthSections.forEach { (month, deposits) ->
 
-                // ----- HEADER DEL MES -----
-                item {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 12.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = month,
-                            style = TextStyle(
-                                fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 16.sp,
-                                color = FenceGreen
-                            )
-                        )
-                        Spacer(modifier = Modifier.weight(1f))
-
-                        // CALENDARIO
-                        Box(
-                            modifier = Modifier
-                                .size(30.dp)
-                                .clip(RoundedCornerShape(10.dp))
-                                .background(CaribbeanGreen),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.vector_calendar),
-                                contentDescription = null,
-                                modifier = Modifier.size(16.dp)
-                            )
-                        }
-                    }
-                }
-
-                // ----- ÍTEMS -----
-                itemsIndexed(deposits) { index, deposit ->
-                    SavingsDepositRow(
-                        title = title(deposit),
-                        time = time(deposit),
-                        amount = amount(deposit),
-                        iconRes = iconRes(deposit),
-                        iconBgColor = if (index % 2 == 0)
-                            LightBlue
-                        else
-                            LightBlue.copy(alpha = 0.85f) // segundo azul
+            // ----- HEADER DEL MES -----
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = month,
+                    style = TextStyle(
+                        fontFamily = poppinsFamily,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        color = FenceGreen
                     )
-                    Spacer(modifier = Modifier.height(10.dp))
+                )
+                Spacer(modifier = Modifier.weight(1f))
+
+                // CALENDARIO
+                Box(
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .background(CaribbeanGreen),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.vector_calendar),
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp)
+                    )
                 }
+            }
+
+            // ----- ÍTEMS DEL MES -----
+            deposits.forEachIndexed { index, deposit ->
+                SavingsDepositRow(
+                    title = title(deposit),
+                    time = time(deposit),
+                    amount = amount(deposit),
+                    iconRes = iconRes(deposit),
+                    iconBgColor = if (index % 2 == 0)
+                        LightBlue
+                    else
+                        LightBlue.copy(alpha = 0.85f) // segundo azul
+                )
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
 
-
+        // ----- BOTÓN ADD SAVINGS AL FINAL -----
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 12.dp),
+                .padding(vertical = 20.dp), // Un poco de aire extra
             contentAlignment = Alignment.Center
         ) {
             PrimaryButton(
@@ -108,6 +104,9 @@ fun <T> SavingsDepositPanel(
                 onClick = onAddSavingsClick
             )
         }
+
+        // Espacio de seguridad final
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
@@ -117,11 +116,10 @@ private fun SavingsDepositRow(
     time: String,
     amount: String,
     @DrawableRes iconRes: Int,
-    iconBgColor: androidx.compose.ui.graphics.Color
+    iconBgColor: Color
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
 
@@ -159,7 +157,6 @@ private fun SavingsDepositRow(
                     fontFamily = poppinsFamily,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 12.sp,
-
                     color = CaribbeanGreen
                 )
             )

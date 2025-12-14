@@ -47,15 +47,11 @@ fun FoodAddExpenseScreen(
                 onBackClick = { navController.popBackStack() }
             )
         },
-    panelContent = {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+        panelContent = {
+
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 16.dp)
             ) {
 
@@ -80,8 +76,8 @@ fun FoodAddExpenseScreen(
                         }
                     }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
 
+                Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
                     label = stringResource(R.string.category),
@@ -96,43 +92,43 @@ fun FoodAddExpenseScreen(
                         )
                     }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
 
+                Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
                     label = stringResource(R.string.amount),
                     value = stringResource(R.string._26_00),
                     valueColor = Void
                 )
-                Spacer(modifier = Modifier.height(16.dp))
 
+                Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
                     label = stringResource(R.string.expense_title),
                     value = stringResource(R.string.dinner),
                     valueColor = Void
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
-
-                MessageBox(label = stringResource(R.string.enter_message))
-                Spacer(modifier = Modifier.height(12.dp))
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 26.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                PrimaryButton(
-                    text = stringResource(R.string.save),
-                    onClick = {
-                        // después conectar
-                    }
+                MessageBox(
+                    label = stringResource(R.string.enter_message)
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.save),
+                        onClick = {
+                            // después conectar
+                        }
+                    )
+                }
             }
         }
-    }
     )
 }

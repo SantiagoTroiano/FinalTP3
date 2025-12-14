@@ -29,19 +29,19 @@ fun CategoryGridItem(
     title: String,
     @DrawableRes iconRes: Int,
     backgroundColor: Color,
-
+    modifier: Modifier = Modifier,    // ← NUEVO
     onClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.width(98.dp),
+        modifier = modifier,           // ← Se usa el modifier de afuera
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Box(
             modifier = Modifier
                 .size(width = 98.dp, height = 90.dp)
                 .clip(RoundedCornerShape(26.dp))
                 .background(backgroundColor)
-
                 .clickable { onClick() },
             contentAlignment = Alignment.Center
         ) {
@@ -51,10 +51,12 @@ fun CategoryGridItem(
                 modifier = Modifier.size(42.dp)
             )
         }
+
         Spacer(modifier = Modifier.height(6.dp))
+
         SimpleText(
             text = title,
-            fontSize = 13.sp,
+            fontSize = 13.sp
         )
     }
 }

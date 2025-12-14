@@ -6,7 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,60 +39,51 @@ fun <T> CategoryPanel(
     onAddExpense: () -> Unit
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp)
-        ) {
-
-            var globalExpenseIndex = 0
-
-            monthlyExpenses.forEachIndexed { monthIndex, monthlyData ->
-
-                item {
-                    CategoryPanelMonthHeader(
-                        month = monthlyData.month,
-                        showCalendar = monthIndex == 0
-                    )
-                }
-
-                items(monthlyData.expenses) { expenseItem ->
-
-                    val (title, time, amount) = expenseData(expenseItem)
-
-                    CategoryExpenseRow(
-
-                        title = title,
-                        time = time,
-                        amount = amount,
-                        iconResId = iconResId,
-                        iconBackground = if (globalExpenseIndex % 2 == 0) VividBlue else LightBlue
-                    )
-                    globalExpenseIndex++
-                }
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(6.dp))
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp, vertical = 18.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            PrimaryButton(
-                text = stringResource(R.string.add_expenses),
-                onClick = onAddExpense
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 20.dp,
+                end = 20.dp,
+                bottom = 120.dp
             )
+
+    ) {
+
+        var globalExpenseIndex = 0
+
+        monthlyExpenses.forEachIndexed { monthIndex, monthlyData ->
+
+            CategoryPanelMonthHeader(
+                month = monthlyData.month,
+                showCalendar = monthIndex == 0
+            )
+
+            monthlyData.expenses.forEach { expenseItem ->
+
+                val (title, time, amount) = expenseData(expenseItem)
+
+                CategoryExpenseRow(
+                    title = title,
+                    time = time,
+                    amount = amount,
+                    iconResId = iconResId,
+                    iconBackground =
+                        if (globalExpenseIndex % 2 == 0) VividBlue else LightBlue
+                )
+
+                globalExpenseIndex++
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
+
+        PrimaryButton(
+            text = stringResource(R.string.add_expenses),
+            onClick = onAddExpense
+        )
     }
 }
+
 
 @Composable
 private fun CategoryPanelMonthHeader(

@@ -1,6 +1,7 @@
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -65,46 +66,70 @@ fun CategoriesScreen(
         navController = navController,
         current = "categories",
         headerHeight = 290.dp,
+
         headerContent = {
-            Column {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+            ) {
                 HeaderBar(
                     title = stringResource(R.string.categories),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )
+
                 Spacer(modifier = Modifier.height(12.dp))
                 FinanceSummaryBlock()
             }
         },
+
         panelContent = {
+
             Column(
                 Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 18.dp)
             ) {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    contentPadding = PaddingValues(bottom = 32.dp)
-                ) {
-                    items(categories) { item ->
 
-                        CategoryGridItem(
-                            title = item.title,
-                            iconRes = item.iconRes,
-                            backgroundColor = if (item.isPrimary) primaryColor else secondaryColor,
-                            onClick = {
-                                if (item.id == "new_category") {
-                                    showAddCategoryDialog = true
-                                } else {
-                                    navController.navigate(item.direccion)
+                val rows = categories.chunked(3)
+
+                rows.forEach { row ->
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 14.dp),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+
+                        row.forEach { item ->
+
+                            CategoryGridItem(
+                                title = item.title,
+                                iconRes = item.iconRes,
+                                backgroundColor = if (item.isPrimary) primaryColor else secondaryColor,
+                                modifier = Modifier.weight(1f),
+                                onClick = {
+                                    if (item.id == "new_category") {
+                                        showAddCategoryDialog = true
+                                    } else {
+                                        navController.navigate(item.direccion)
+                                    }
                                 }
+                            )
+                        }
+
+                        // Relleno para completar espacios si la fila tiene menos de 3 elementos
+                        if (row.size < 3) {
+                            repeat(3 - row.size) {
+                                Spacer(modifier = Modifier.weight(1f))
                             }
-                        )
+                        }
                     }
                 }
             }
         }
+
     )
 }

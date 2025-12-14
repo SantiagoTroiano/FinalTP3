@@ -1,6 +1,7 @@
 package com.example.parcialtp3.ui.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -33,8 +34,6 @@ fun TransactionsMonthSection(
     val themeViewModel: ThemeViewModel = viewModel()
     val isDarkMode = themeViewModel.darkThemeEnabled.collectAsState().value
 
-
-
     val grouped by viewModel.transactionsByMonth.collectAsState()
 
     LaunchedEffect(typeFilter) {
@@ -59,27 +58,27 @@ fun TransactionsMonthSection(
             Text(stringResource(R.string.no_se_encontraron_transacciones), color = OceanBlue)
         }
     } else {
-        LazyColumn(
+
+        // REEMPLAZAMOS LazyColumn por Column
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
         ) {
             groupedToShow.forEach { (monthName, transactions) ->
-                item {
-                    MonthSection(
-                        monthName = monthName,
-                        transactions = transactions.map { map ->
-                            Transaction(
-                                iconRes = R.drawable.icon_salary,
-                                title = map["description"]?.toString() ?: "Sin descripción",
-                                subtitle = map["date"]?.toString() ?: "",
-                                middleText = map["subtype"]?.toString() ?: "",
-                                value = "$${map["amount"]}",
-                                valueColor = if (map["type"] == "income") OceanBlue else if(isDarkMode) LightGreen else Void
-                            )
-                        }
-                    )
-                }
+                MonthSection(
+                    monthName = monthName,
+                    transactions = transactions.map { map ->
+                        Transaction(
+                            iconRes = R.drawable.icon_salary,
+                            title = map["description"]?.toString() ?: "Sin descripción",
+                            subtitle = map["date"]?.toString() ?: "",
+                            middleText = map["subtype"]?.toString() ?: "",
+                            value = "$${map["amount"]}",
+                            valueColor = if (map["type"] == "income") OceanBlue else if (isDarkMode) LightGreen else Void
+                        )
+                    }
+                )
             }
         }
     }

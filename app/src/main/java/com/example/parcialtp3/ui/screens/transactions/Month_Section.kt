@@ -17,7 +17,7 @@ fun MonthSection(
     monthName: String,
     transactions: List<Transaction>
 ) {
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 14.dp)) {
 
         Text(
             text = monthName,
@@ -28,7 +28,12 @@ fun MonthSection(
         Spacer(modifier = Modifier.height(8.dp))
 
         transactions.forEach { transaction ->
-            Text(text = "${transaction.title} - ${transaction.value}")
+            Text(
+                text = "${transaction.title}  -  ${transaction.value}",
+                fontSize = 14.sp
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
         }
     }
 }

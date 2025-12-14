@@ -2,11 +2,13 @@ package com.example.parcialtp3.ui.screens.profile.security
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+// import androidx.compose.foundation.rememberScrollState <-- NO ES NECESARIO
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
+// import androidx.compose.foundation.verticalScroll <-- ESTE ERA EL CAUSANTE DEL CRASH
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,7 +33,8 @@ fun H_Terms_And_Conditions_Screen(
 )
 {
     var accepted by remember { mutableStateOf(false) }
-    val scroll = rememberScrollState()
+    // val scroll = rememberScrollState() <-- ELIMINADO
+
     val link = stringResource(R.string.terms_link)
 
     BackgroundScaffold(
@@ -59,11 +62,12 @@ fun H_Terms_And_Conditions_Screen(
                     shape = RoundedCornerShape(24.dp),
                     color = Honeydew
                 ) {
+                    // AQUÍ ESTABA EL ERROR:
+                    // Quitamos .verticalScroll(scroll) porque el BackgroundScaffold ya tiene scroll.
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
-                            .verticalScroll(scroll)
                     ) {
                         Text(
                             text = stringResource(R.string.terms_header),
@@ -164,6 +168,7 @@ fun H_Terms_And_Conditions_Screen(
         }
     )
 }
+
 @Composable
 private fun ParagraphSmall(text: String) {
     Text(

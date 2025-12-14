@@ -1,8 +1,10 @@
 package com.example.parcialtp3.ui.screens.categories.saving
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -102,36 +104,50 @@ fun SavingsScreen(
         },
         panelContent = {
             Column(
-                Modifier
-                    .fillMaxSize()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 18.dp)
+                    .padding(bottom = 120.dp) // para que no lo tape el BottomNav
             ) {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    contentPadding = PaddingValues(bottom = 32.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    items(categories) { item ->
-                        CategoryGridItem(
-                            title = item.title,
-                            iconRes = item.iconRes,
-                            backgroundColor = if (item.isPrimary) primaryColor else secondaryColor,
-                            onClick = { navController.navigate(item.direccion) }
-                        )
+
+                categories.chunked(3).forEach { rowItems ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+
+                        rowItems.forEach { item ->
+                            Box(modifier = Modifier.weight(1f)) {
+                                CategoryGridItem(
+                                    title = item.title,
+                                    iconRes = item.iconRes,
+                                    backgroundColor = if (item.isPrimary) primaryColor else secondaryColor,
+                                    onClick = { navController.navigate(item.direccion) }
+                                )
+                            }
+                        }
+
+                        repeat(3 - rowItems.size) {
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
                     }
+
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
 
-                PrimaryButton(
-                    text = stringResource(R.string.add_more),
-                    onClick = { showAddCategoryDialog = true },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 8.dp)
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.add_more),
+                        onClick = { showAddCategoryDialog = true }
+                    )
+                }
             }
         }
+
     )
 }

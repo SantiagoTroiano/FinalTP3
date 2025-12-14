@@ -56,7 +56,7 @@ fun GiftsScreen(
 
     BackgroundScaffold(
         navController = navController,
-        headerHeight = 290.dp,
+        headerHeight = 340.dp,
         headerContent = {
             Column(
                 modifier = Modifier

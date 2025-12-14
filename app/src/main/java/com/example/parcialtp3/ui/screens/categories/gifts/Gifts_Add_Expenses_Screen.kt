@@ -46,16 +46,14 @@ fun Gifts_Add_Expenses_Screen(
                 onBackClick = { navController.popBackStack() }
             )
         },
-    panelContent = {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
+        panelContent = {
+
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 16.dp)
             ) {
+
                 RoundedInputRow(
                     label = stringResource(R.string.date),
                     value = stringResource(R.string.april_28_2024),
@@ -70,14 +68,16 @@ fun Gifts_Add_Expenses_Screen(
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.vector_calendar),
-                                contentDescription = "calendar",
+                                contentDescription = null,
                                 tint = FenceGreen,
                                 modifier = Modifier.size(16.dp)
                             )
                         }
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
+
                 RoundedInputRow(
                     label = stringResource(R.string.category),
                     value = stringResource(R.string.select_the_category),
@@ -85,39 +85,47 @@ fun Gifts_Add_Expenses_Screen(
                     trailing = {
                         Icon(
                             painter = painterResource(id = R.drawable.vector_down),
-                            contentDescription = "Down",
+                            contentDescription = null,
                             tint = androidx.compose.ui.graphics.Color.Unspecified,
                             modifier = Modifier.size(16.dp)
                         )
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
+
                 RoundedInputRow(
                     label = stringResource(R.string.amount),
                     value = stringResource(R.string._30_00),
                     valueColor = Void
                 )
-               Spacer(modifier = Modifier.height(16.dp))
+
+                Spacer(modifier = Modifier.height(16.dp))
+
                 RoundedInputRow(
                     label = stringResource(R.string.expense_title),
                     value = stringResource(R.string.perfume),
                     valueColor = Void
                 )
-               Spacer(modifier = Modifier.height(16.dp))
-                MessageBox(label = stringResource(R.string.enter_message))
-           Spacer(modifier = Modifier.height(12.dp))
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 26.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                PrimaryButton(
-                    text = stringResource(R.string.save),
-                    onClick = { }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                MessageBox(
+                    label = stringResource(R.string.enter_message)
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.save),
+                        onClick = { }
+                    )
+                }
             }
         }
-    })
+    )
 }
