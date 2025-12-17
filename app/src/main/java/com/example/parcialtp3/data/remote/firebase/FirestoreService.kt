@@ -2,8 +2,9 @@ package com.example.parcialtp3.data.remote.firebase
 
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class FirestoreService {
+class FirestoreService @Inject constructor() {
 
     private val firestore = FirebaseFirestore.getInstance()
 

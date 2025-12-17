@@ -20,11 +20,12 @@ import com.example.parcialtp3.ui.components.HeaderBar
 import com.example.parcialtp3.ui.components.TransactionsMonthSection
 import com.example.parcialtp3.ui.viewmodels.TransactionsViewModel
 import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Composable
 fun TransactionsExpenseScreen(navController: NavHostController) {
-    val viewModel: TransactionsViewModel = viewModel()
+    val viewModel: TransactionsViewModel = hiltViewModel()
 
     BackgroundScaffold(
         navController = navController,
