@@ -3,10 +3,11 @@ package com.example.parcialtp3.data.remote
 import com.example.parcialtp3.data.remote.firebase.FirestoreService
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class TransactionsRepository {
-
-    private val firestoreService = FirestoreService()
+class TransactionsRepository @Inject constructor(
+    private val firestoreService: FirestoreService
+) {
 
     suspend fun getTransactionsGroupedByMonth(
         typeFilter: String? = null
