@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -43,7 +44,7 @@ fun D_Fingerprint_Screen(
         headerContent = {
             HeaderBar(
                 navController = navController,
-                title = "Fingerprint",
+                title = stringResource(R.string.fingerprint_title),
                 onBackClick = { navController.popBackStack() }
             )
         },
@@ -58,7 +59,7 @@ fun D_Fingerprint_Screen(
 
                 FingerprintRow(
                     leadingIconRes = R.drawable.fingerprint_lightblue,
-                    label = "John Fingerprint",
+                    label = stringResource(R.string.fingerprint_existing),
                     onClick = onTapExisting,
                     iconSize = 75.dp
                 )
@@ -67,11 +68,10 @@ fun D_Fingerprint_Screen(
 
                 FingerprintRow(
                     leadingIconRes = R.drawable.plus_lightblue,
-                    label = "Add A Fingerprint",
+                    label = stringResource(R.string.fingerprint_add),
                     onClick = onAddFingerprint,
                     iconSize = 75.dp
                 )
-
             }
         }
     )

@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -54,17 +56,43 @@ data class AccountTransaction(
 fun AccountBalanceScreen(navController: NavHostController) {
 
     val transactions = listOf(
-        AccountTransaction(R.drawable.vector_salary, "Salary", "18:27 – April 30", "Monthly", "+$4,000.00"),
-        AccountTransaction(R.drawable.vector_groceries, "Groceries", "17:00 – April 24", "Pantry", "-$100.00"),
-        AccountTransaction(R.drawable.vector_rent, "Rent", "8:30 – April 15", "Rent", "-$674.40"),
-        AccountTransaction(R.drawable.vector_transport, "Transport", "9:30 – April 08", "Fuel", "-$4.13")
+        AccountTransaction(
+            R.drawable.vector_salary,
+            stringResource(R.string.salary),
+            stringResource(R.string._18_27_april_30),
+            stringResource(R.string.monthly),
+            "+$4,000.00"
+        ),
+        AccountTransaction(
+            R.drawable.vector_groceries,
+            stringResource(R.string.groceries),
+            stringResource(R.string._17_00_april_24),
+            stringResource(R.string.pantry),
+            "-$100.00"
+        ),
+        AccountTransaction(
+            R.drawable.vector_rent,
+            stringResource(R.string.rent),
+            "8:30 – April 15",
+            stringResource(R.string.rent),
+            "-$674.40"
+        ),
+        AccountTransaction(
+            R.drawable.vector_transport,
+            stringResource(R.string.transport),
+            "9:30 – April 08",
+            stringResource(R.string.fuel),
+            "-$4.13"
+        )
     )
 
     Box(modifier = Modifier.fillMaxSize()) {
+
         BackgroundScaffold(
             navController = navController,
             current = "account_balance",
             headerHeight = 460.dp,
+
             headerContent = {
                 Column(
                     modifier = Modifier
@@ -81,16 +109,17 @@ fun AccountBalanceScreen(navController: NavHostController) {
                     FinanceSummaryBlock()
                     Spacer(modifier = Modifier.height(18.dp))
 
-                    // --- Income y Expense Cards ---
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(horizontal = 4.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
+
+                        // INCOME
                         Surface(
                             color = Honeydew,
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                            shape = RoundedCornerShape(16.dp),
                             modifier = Modifier
                                 .weight(1f)
                                 .height(110.dp)
@@ -103,19 +132,23 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
+
                                 Image(
                                     painter = painterResource(id = R.drawable.group_395),
                                     contentDescription = "Income",
                                     modifier = Modifier.size(26.dp)
                                 )
+
                                 Spacer(modifier = Modifier.height(8.dp))
+
                                 Text(
-                                    text = "Income",
+                                    text = stringResource(R.string.income),
                                     color = Void,
                                     fontFamily = poppinsFamily,
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.Medium
                                 )
+
                                 Text(
                                     text = "$4,000.00",
                                     color = Void,
@@ -126,9 +159,10 @@ fun AccountBalanceScreen(navController: NavHostController) {
                             }
                         }
 
+                        // EXPENSE
                         Surface(
                             color = Honeydew,
-                            shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                            shape = RoundedCornerShape(16.dp),
                             modifier = Modifier
                                 .weight(1f)
                                 .height(110.dp)
@@ -147,13 +181,15 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                     modifier = Modifier.size(26.dp)
                                 )
                                 Spacer(modifier = Modifier.height(8.dp))
+
                                 Text(
-                                    text = "Expense",
+                                    text = stringResource(R.string.expense),
                                     color = OceanBlue,
                                     fontFamily = poppinsFamily,
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.Medium
                                 )
+
                                 Text(
                                     text = "$1,187.40",
                                     color = OceanBlue,
@@ -168,19 +204,22 @@ fun AccountBalanceScreen(navController: NavHostController) {
                     Spacer(modifier = Modifier.height(12.dp))
                 }
             },
+
             panelContent = {
+
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                 ) {
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "Transactions",
+                            text = stringResource(R.string.transactions),
                             color = Void,
                             fontFamily = poppinsFamily,
                             fontWeight = FontWeight.Bold,
@@ -188,7 +227,7 @@ fun AccountBalanceScreen(navController: NavHostController) {
                         )
 
                         Text(
-                            text = "See all",
+                            text = stringResource(R.string.see_all),
                             color = FenceGreen,
                             fontFamily = poppinsFamily,
                             fontWeight = FontWeight.Medium,
@@ -200,19 +239,22 @@ fun AccountBalanceScreen(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // --- Transacciones ---
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(bottom = 120.dp)
+                    // --- TRANSACCIONES SIN LAZYCOLUMN ---
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 120.dp)
                     ) {
-                        itemsIndexed(transactions) { index, t ->
+
+                        transactions.forEachIndexed { index, t ->
+
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(vertical = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                // Icono circular celeste
+
                                 Box(
                                     modifier = Modifier
                                         .size(44.dp)
@@ -230,9 +272,9 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                 Spacer(modifier = Modifier.width(12.dp))
 
                                 Column(
-                                    modifier = Modifier.weight(1.3f),
-                                    verticalArrangement = Arrangement.Center
+                                    modifier = Modifier.weight(1.3f)
                                 ) {
+
                                     Text(
                                         text = t.title,
                                         color = Void,
@@ -240,7 +282,9 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                         fontWeight = FontWeight.SemiBold,
                                         fontSize = 15.sp
                                     )
+
                                     Spacer(modifier = Modifier.height(2.dp))
+
                                     Text(
                                         text = t.subtitle,
                                         color = OceanBlue,
@@ -249,7 +293,6 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                     )
                                 }
 
-                                // Línea vertical verde
                                 Box(
                                     modifier = Modifier
                                         .width(1.dp)
@@ -257,7 +300,6 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                         .background(CaribbeanGreen)
                                 )
 
-                                // Categoría
                                 Box(
                                     modifier = Modifier
                                         .weight(0.8f)
@@ -273,7 +315,6 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                     )
                                 }
 
-                                // Línea vertical verde
                                 Box(
                                     modifier = Modifier
                                         .width(1.dp)
@@ -281,7 +322,6 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                         .background(CaribbeanGreen)
                                 )
 
-                                // Monto
                                 Box(
                                     modifier = Modifier
                                         .weight(1f)
@@ -290,7 +330,8 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                 ) {
                                     Text(
                                         text = t.amount,
-                                        color = if (t.amount.startsWith("-")) OceanBlue else FenceGreen,
+                                        color = if (t.amount.startsWith("-"))
+                                            OceanBlue else FenceGreen,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.Bold,
                                         fontSize = 15.sp
@@ -298,7 +339,6 @@ fun AccountBalanceScreen(navController: NavHostController) {
                                 }
                             }
 
-                            // Divider entre transacciones
                             if (index != transactions.lastIndex) {
                                 Box(
                                     modifier = Modifier

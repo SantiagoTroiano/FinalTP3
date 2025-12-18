@@ -6,46 +6,21 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.Honeydew
@@ -65,7 +40,7 @@ fun A_B_Help_Center_Screen(
         whiteHeight = Dp.Unspecified,
         headerContent = {
             HeaderBar(
-                title = "Help & FAQS",
+                title = stringResource(R.string.help_center_title),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -73,6 +48,7 @@ fun A_B_Help_Center_Screen(
         panelContent = {
             var tab by remember { mutableStateOf(HelpTab.FAQ) }
             var category by remember { mutableStateOf(HelpCategory.General) }
+
             Column(
                 Modifier
                     .fillMaxWidth()
@@ -80,7 +56,6 @@ fun A_B_Help_Center_Screen(
             ) {
                 Spacer(Modifier.height(12.dp))
 
-                // Switch (FAQ / Contact Us)
                 HelpSegmentedSwitch(
                     selected = tab,
                     onSelect = { tab = it },
@@ -89,7 +64,6 @@ fun A_B_Help_Center_Screen(
 
                 Spacer(Modifier.height(12.dp))
 
-                // NUEVO: Segmento de categorías
                 CategorySegment(
                     selected = category,
                     onSelect = { category = it },
@@ -98,12 +72,12 @@ fun A_B_Help_Center_Screen(
 
                 Spacer(Modifier.height(12.dp))
 
-                // Buscador
+                // Search
                 var query by remember { mutableStateOf("") }
                 TextField(
                     value = query,
                     onValueChange = { query = it },
-                    placeholder = { Text("Search", fontSize = 13.sp) },
+                    placeholder = { Text(stringResource(R.string.help_search_placeholder), fontSize = 13.sp) },
                     singleLine = true,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -113,15 +87,11 @@ fun A_B_Help_Center_Screen(
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = LightGreen,
                         unfocusedContainerColor = LightGreen,
-                        disabledContainerColor = LightGreen,
                         cursorColor = Void,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
                         focusedTextColor = Void,
-                        unfocusedTextColor = Void,
-                        focusedPlaceholderColor = Void.copy(alpha = .6f),
-                        unfocusedPlaceholderColor = Void.copy(alpha = .6f)
+                        unfocusedTextColor = Void
                     )
                 )
 
@@ -143,22 +113,22 @@ fun A_B_Help_Center_Screen(
 @Composable
 private fun FaqSection() {
     val faqs = listOf(
-        "How to use FinWise?",
-        "How much does it cost to use FinWise?",
-        "How to contact support?",
-        "How can I reset my password if I forget it?",
-        "Are there any privacy or data security measures in place?",
-        "Can I customize settings within the application?",
-        "How can I delete my account?",
-        "How do I access my expense history?",
-        "Can I use the app offline?"
+        stringResource(R.string.faq_how_to_use),
+        stringResource(R.string.faq_cost),
+        stringResource(R.string.faq_contact_support),
+        stringResource(R.string.faq_reset_password),
+        stringResource(R.string.faq_privacy),
+        stringResource(R.string.faq_customize),
+        stringResource(R.string.faq_delete_account),
+        stringResource(R.string.faq_expense_history),
+        stringResource(R.string.faq_offline)
     )
 
     Column {
         faqs.forEachIndexed { i, q ->
             FaqItem(
                 question = q,
-                answer = "Here goes a short answer/explanation for: \"$q\"."
+                answer = stringResource(R.string.faq_default_answer)
             )
             if (i != faqs.lastIndex) {
                 Divider(
@@ -196,9 +166,10 @@ private fun FaqItem(
                 color = Void,
                 modifier = Modifier.weight(1f)
             )
+
             Image(
                 painter = painterResource(R.drawable.icon_chevron_down),
-                contentDescription = "Expand/Collapse",
+                contentDescription = stringResource(R.string.help_expand_collapse),
                 modifier = Modifier.size(14.dp)
             )
         }
@@ -227,8 +198,7 @@ private fun CategorySegment(
     Surface(
         color = LightGreen,
         shape = RoundedCornerShape(18.dp),
-        modifier = modifier
-            .height(44.dp)
+        modifier = modifier.height(44.dp)
     ) {
         Row(
             Modifier
@@ -238,7 +208,7 @@ private fun CategorySegment(
             verticalAlignment = Alignment.CenterVertically
         ) {
             @Composable
-            fun Seg(cat: HelpCategory, label: String) {
+            fun Seg(cat: HelpCategory, label: Int) {
                 val isSel = selected == cat
                 Surface(
                     color = if (isSel) CaribbeanGreen else Color.Transparent,
@@ -250,17 +220,16 @@ private fun CategorySegment(
                 ) {
                     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
-                            text = label,
-                            color = if (isSel) Color.White else Void,
-                            style = MaterialTheme.typography.bodyMedium
+                            text = stringResource(label),
+                            color = if (isSel) Color.White else Void
                         )
                     }
                 }
             }
 
-            Seg(HelpCategory.General, "General")
-            Seg(HelpCategory.Account, "Account")
-            Seg(HelpCategory.Services, "Services")
+            Seg(HelpCategory.General, R.string.help_category_general)
+            Seg(HelpCategory.Account, R.string.help_category_account)
+            Seg(HelpCategory.Services, R.string.help_category_services)
         }
     }
 }
@@ -274,32 +243,32 @@ private fun ContactSection(
     Column {
         ContactRow(
             iconRes = R.drawable.icon_bonsupport_caribbeangreen,
-            label = "Customer Service",
+            label = stringResource(R.string.help_contact_customer_service),
             onClick = onClickCustomService
         )
         DividerLight()
 
         ContactRow(
             iconRes = R.drawable.icon_botwebsite_caribbeangreen,
-            label = "Website"
+            label = stringResource(R.string.help_contact_website)
         )
         DividerLight()
 
         ContactRow(
             iconRes = R.drawable.icon_botfacebook_caribbeangreen,
-            label = "Facebook"
+            label = stringResource(R.string.help_contact_facebook)
         )
         DividerLight()
 
         ContactRow(
             iconRes = R.drawable.icon_botwhatssapp_caribbeangreen,
-            label = "Whatsapp"
+            label = stringResource(R.string.help_contact_whatsapp)
         )
         DividerLight()
 
         ContactRow(
             iconRes = R.drawable.icon_botinstagram_caribbeangreen,
-            label = "Instagram"
+            label = stringResource(R.string.help_contact_instagram)
         )
     }
 }
@@ -352,7 +321,7 @@ private fun ContactRow(
 
         Image(
             painter = painterResource(R.drawable.icon_chevron_right),
-            contentDescription = "Go",
+            contentDescription = stringResource(R.string.help_go),
             modifier = Modifier.size(16.dp)
         )
     }
@@ -395,12 +364,12 @@ private fun HelpSegmentedSwitch(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SegmentTab(
-                text = "FAQ",
+                text = stringResource(R.string.help_tab_faq),
                 selected = selected == HelpTab.FAQ,
                 onClick = { onSelect(HelpTab.FAQ) }
             )
             SegmentTab(
-                text = "Contact Us",
+                text = stringResource(R.string.help_tab_contact),
                 selected = selected == HelpTab.CONTACT,
                 onClick = { onSelect(HelpTab.CONTACT) }
             )
@@ -427,12 +396,4 @@ private fun RowScope.SegmentTab(
             fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium
         )
     }
-}
-
-/* =========================== PREVIEW =========================== */
-
-@Preview(showBackground = true, showSystemUi = true, name = "Help & FAQS")
-@Composable
-private fun PreviewHelpCenter() {
-    A_B_Help_Center_Screen(navController = rememberNavController())
 }

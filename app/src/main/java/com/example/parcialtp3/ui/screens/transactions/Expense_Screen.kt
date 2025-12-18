@@ -3,6 +3,7 @@ package com.example.parcialtp3.ui.screens.transactions
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
@@ -18,55 +19,62 @@ import com.example.parcialtp3.ui.components.CabeceraTransactions
 import com.example.parcialtp3.ui.components.HeaderBar
 import com.example.parcialtp3.ui.components.TransactionsMonthSection
 import com.example.parcialtp3.ui.viewmodels.TransactionsViewModel
+import androidx.compose.ui.res.stringResource
+import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Composable
 fun TransactionsExpenseScreen(navController: NavHostController) {
-    val viewModel: TransactionsViewModel = viewModel()
+    val viewModel: TransactionsViewModel = hiltViewModel()
 
-        BackgroundScaffold(
-            navController = navController,
-            headerHeight = 410.dp,
-            whiteHeight = Dp.Unspecified,
-            headerContent = { TransactionsExpenseHeader(navController) },
-            panelContent = {
-                TransactionsMonthSection(viewModel = viewModel, typeFilter = "expense")
-            }
-        )
-
+    BackgroundScaffold(
+        navController = navController,
+        headerHeight = 410.dp,
+        whiteHeight = Dp.Unspecified,
+        headerContent = { TransactionsExpenseHeader(navController) },
+        panelContent = {
+            TransactionsMonthSection(
+                viewModel = viewModel,
+                typeFilter = "expense"
+            )
+        }
+    )
 }
 
 @Composable
 fun TransactionsExpenseHeader(navController: NavHostController) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxWidth()   // ← ANTES fillMaxSize()
     ) {
         HeaderBar(
-            title = "Transaction",
+            title = stringResource(R.string.transactions_title),
             navController = navController,
             onBackClick = { navController.popBackStack() }
         )
 
         CabeceraTransactions(
-            tarjetaBalanceText1 = "Total Balance",
-            tarjetaBalanceText2 = "$7,783.00",
+            tarjetaBalanceText1 = stringResource(R.string.transactions_total_balance),
+            tarjetaBalanceText2 = stringResource(R.string.transactions_balance_value),
             tarjeta1Color = Honeydew,
             tarjeta1Imagen = R.drawable.group_395,
             tarjeta1Direccion = "Income_Screen",
-            tarjeta1Texto1 = "Income",
-            tarjeta1Texto2 = "$4,120.00",
+            tarjeta1Texto1 = stringResource(R.string.transactions_income_label),
+            tarjeta1Texto2 = stringResource(R.string.transactions_income_value),
             tarjeta1Texto1Color = Void,
             tarjeta1Texto2Color = Void,
+
             tarjeta2Direccion = "Tranasctions_Screen",
             tarjeta2Color = OceanBlue,
             tarjeta2Imagen = R.drawable.group_396_white,
-            tarjeta2Texto1 = "Expense",
-            tarjeta2Texto2 = "$1,187.40",
+            tarjeta2Texto1 = stringResource(R.string.transactions_expense_label),
+            tarjeta2Texto2 = stringResource(R.string.transactions_expense_value),
             tarjeta2Texto1Color = Honeydew,
             tarjeta2Texto2Color = Honeydew,
+
             navController = navController
         )
 
-        Spacer(modifier = Modifier.weight(1f))
+        // ❌ ANTES: Spacer(modifier = Modifier.weight(1f))
+        // Eliminado porque rompe el alto del header
     }
 }

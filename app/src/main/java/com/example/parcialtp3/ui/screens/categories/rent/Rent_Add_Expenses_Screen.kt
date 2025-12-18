@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -41,91 +42,92 @@ fun Rent_Add_Expenses_Screen(
         headerHeight = 180.dp,
         headerContent = {
             HeaderBar(
-                title = "Add Expenses",
+                title = stringResource(R.string.add_expenses),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
         },
-    panelContent={
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+        panelContent = {
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
-                    .padding(horizontal = 20.dp, vertical = 16.dp)
+                    .fillMaxSize()
             ) {
-                RoundedInputRow(
-                    label = "Date",
-                    value = "April 15, 2024",
-                    valueColor = Void,
-                    trailing = {
-                        Box(
-                            modifier = Modifier
-                                .size(30.dp)
-                                .clip(CircleShape)
-                                .background(CaribbeanGreen),
-                            contentAlignment = Alignment.Center
-                        ) {
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(rememberScrollState())
+                        .padding(horizontal = 20.dp, vertical = 16.dp)
+                ) {
+                    RoundedInputRow(
+                        label = stringResource(R.string.date),
+                        value = stringResource(R.string.april_15_2024),
+                        valueColor = Void,
+                        trailing = {
+                            Box(
+                                modifier = Modifier
+                                    .size(30.dp)
+                                    .clip(CircleShape)
+                                    .background(CaribbeanGreen),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.vector_calendar),
+                                    contentDescription = stringResource(R.string.calendar),
+                                    tint = FenceGreen,
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    RoundedInputRow(
+                        label = stringResource(R.string.category),
+                        value = stringResource(R.string.rent),
+                        valueColor = Cyprus,
+                        trailing = {
                             Icon(
-                                painter = painterResource(id = R.drawable.vector_calendar),
-                                contentDescription = "calendar",
-                                tint = FenceGreen,
+                                painter = painterResource(id = R.drawable.vector_down),
+                                contentDescription = stringResource(R.string.down),
+                                tint = Color.Unspecified,
                                 modifier = Modifier.size(16.dp)
                             )
                         }
-                    }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                RoundedInputRow(
-                    label = "Category",
-                    value = "Rent",
-                    valueColor = Cyprus,
-                    trailing = {
-                        Icon(
-                            painter = painterResource(id = R.drawable.vector_down),
-                            contentDescription = "down",
-                            tint = Color.Unspecified,
-                            modifier = Modifier.size(16.dp)
-                        )
-                    }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    RoundedInputRow(
+                        label = stringResource(R.string.amount),
+                        value = stringResource(R.string.amount_674_40),
+                        valueColor = Void
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                RoundedInputRow(
-                    label = "Amount",
-                    value = "$674,40",
-                    valueColor = Void
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    RoundedInputRow(
+                        label = stringResource(R.string.expense_title),
+                        value = stringResource(R.string.rent),
+                        valueColor = Void
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
 
-                RoundedInputRow(
-                    label = "Expense Title",
-                    value = "Rent",
-                    valueColor = Void
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                    MessageBox(
+                        label = stringResource(R.string.enter_message)
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
 
-                MessageBox(
-                    label = "Enter Message"
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 26.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                PrimaryButton(
-                    text = "Save",
-                    onClick = { navController?.popBackStack() }
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 26.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.save),
+                        onClick = { navController.popBackStack() }
+                    )
+                }
             }
         }
-    })
+    )
 }

@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,25 +28,28 @@ fun SplashScreen(navController: NavHostController) {
     LaunchedEffect(Unit) {
         delay(2000) // 2 segundos de splash
         navController.navigate("launch") {
-            popUpTo("splash") { inclusive = true } // elimina splash del backstack
+            popUpTo("splash") { inclusive = true }
         }
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF00C49F)), // Verde Caribeño
+            .background(Color(0xFF00C49F)),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
             Image(
                 painter = painterResource(id = R.drawable.ic_analysis),
-                contentDescription = "FinWise logo",
+                contentDescription = stringResource(R.string.splash_logo_cd),
                 modifier = Modifier.size(120.dp)
             )
+
             Spacer(modifier = Modifier.height(16.dp))
+
             androidx.compose.material3.Text(
-                text = "FinWise",
+                text = stringResource(R.string.splash_title),
                 fontSize = 28.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold,

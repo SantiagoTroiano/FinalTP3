@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "396694744800",
+    "project_id": "parcialtp3",
+    "storage_bucket": "parcialtp3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396694744800:android:63f745c70c2398e4e62a85",
+        "android_client_info": {
+          "package_name": "com.example.parcialtp3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCetW1AHHJGhkAKp6xavAcKC55WAf9gTuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

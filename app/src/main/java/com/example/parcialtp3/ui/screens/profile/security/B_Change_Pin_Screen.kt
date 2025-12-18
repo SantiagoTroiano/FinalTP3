@@ -19,9 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.components.BackgroundScaffold
 import com.example.parcialtp3.ui.components.HeaderBar
@@ -39,7 +41,7 @@ fun B_Change_Pin_Screen(
         headerContent = {
             HeaderBar(
                 navController = navController,
-                title = "Change Pin",
+                title = stringResource(R.string.security_change_pin),
                 onBackClick = { navController.popBackStack() }
             )
         },
@@ -58,21 +60,21 @@ fun B_Change_Pin_Screen(
                 var confirmPin by remember { mutableStateOf("") }
 
                 PasswordInputField(
-                    label = "Current Pin",
+                    label = stringResource(R.string.security_current_pin),
                     value = currentPin,
                     onValueChange = { currentPin = it }
                 )
                 Spacer(Modifier.height(20.dp))
 
                 PasswordInputField(
-                    label = "New Pin",
+                    label = stringResource(R.string.security_new_pin),
                     value = newPin,
                     onValueChange = { newPin = it }
                 )
                 Spacer(Modifier.height(20.dp))
 
                 PasswordInputField(
-                    label = "Confirm Pin",
+                    label = stringResource(R.string.security_confirm_pin),
                     value = confirmPin,
                     onValueChange = { confirmPin = it }
                 )
@@ -90,7 +92,10 @@ fun B_Change_Pin_Screen(
                         contentColor = Color.Black
                     )
                 ) {
-                    Text("Change Pin", style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        stringResource(R.string.security_change_pin),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
 
                 Spacer(Modifier.height(24.dp))

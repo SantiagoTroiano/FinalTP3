@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -42,26 +43,21 @@ fun B_Entertainment(
         headerHeight = 180.dp,
         headerContent = {
             HeaderBar(
-                title = "Add Expenses",
+                title = stringResource(R.string.add_expenses),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
         },
-        panelContent =
-     {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+        panelContent = {
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 16.dp)
             ) {
+
                 RoundedInputRow(
-                    label = "Date",
-                    value = "April 29, 2024",
+                    label = stringResource(R.string.date),
+                    value = stringResource(R.string.april_29_2024),
                     valueColor = Void,
                     trailing = {
                         Box(
@@ -80,11 +76,12 @@ fun B_Entertainment(
                         }
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Category",
-                    value = "Select the category",
+                    label = stringResource(R.string.category),
+                    value = stringResource(R.string.select_the_category),
                     valueColor = Cyprus,
                     trailing = {
                         Icon(
@@ -95,40 +92,41 @@ fun B_Entertainment(
                         )
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Amount",
+                    label = stringResource(R.string.amount),
                     value = "30,00",
                     valueColor = Void
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Expense Title",
+                    label = stringResource(R.string.expense_title),
                     value = "Cinema",
                     valueColor = Void
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 MessageBox(
-                    label = "Enter Message"
+                    label = stringResource(R.string.enter_message)
                 )
-                Spacer(modifier = Modifier.height(12.dp))
-            }
 
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 26.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                PrimaryButton(
-                    text = "Save",
-                    onClick = { navController?.popBackStack() }
-                )
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.save),
+                        onClick = { navController.popBackStack() }
+                    )
+                }
             }
         }
-    }
     )
 }

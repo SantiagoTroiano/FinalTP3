@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -27,25 +28,41 @@ fun A_Medicine_Screen(
     navController: NavHostController
 ) {
     val aprilExpenses = listOf(
-        MedicineExpense("Acetaminophen", "18:27 - April 30", "-$2,00")
+        MedicineExpense(
+            title = stringResource(R.string.acetaminophen),
+            time = stringResource(R.string.time_18_27_april_30),
+            amount = stringResource(R.string.amount_minus_2_00)
+        )
     )
     val marchExpenses = listOf(
-        MedicineExpense("Vitamin C", "15:00 - March 30", "-$1,00"),
-        MedicineExpense("Muscle Pain Cream", "12:47 - March 10", "-$0,50")
+        MedicineExpense(
+            title = stringResource(R.string.vitamin_c),
+            time = stringResource(R.string.time_15_00_march_30),
+            amount = stringResource(R.string.amount_minus_1_00)
+        ),
+        MedicineExpense(
+            title = stringResource(R.string.muscle_pain_cream),
+            time = stringResource(R.string.time_12_47_march_10),
+            amount = stringResource(R.string.amount_minus_0_50)
+        )
     )
     val februaryExpenses = listOf(
-        MedicineExpense("Aspirin", "9:50 - February 09", "-$3,00")
+        MedicineExpense(
+            title = stringResource(R.string.aspirin),
+            time = stringResource(R.string.time_9_50_feb_09),
+            amount = stringResource(R.string.amount_minus_3_00)
+        )
     )
 
     val allMonthlyExpenses = listOf(
-        MonthlyExpenseGroup("April", aprilExpenses),
-        MonthlyExpenseGroup("March", marchExpenses),
-        MonthlyExpenseGroup("February", februaryExpenses)
+        MonthlyExpenseGroup(stringResource(R.string.april), aprilExpenses),
+        MonthlyExpenseGroup(stringResource(R.string.march), marchExpenses),
+        MonthlyExpenseGroup(stringResource(R.string.february), februaryExpenses)
     )
 
     BackgroundScaffold(
         navController = navController,
-        headerHeight = 290.dp,
+        headerHeight = 340.dp,
         headerContent = {
             Column(
                 modifier = Modifier
@@ -53,7 +70,7 @@ fun A_Medicine_Screen(
                     .padding(horizontal = 20.dp)
             ) {
                 HeaderBar(
-                    title = "Medicine",
+                    title = stringResource(R.string.medicine),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )
@@ -66,7 +83,7 @@ fun A_Medicine_Screen(
                 monthlyExpenses = allMonthlyExpenses,
                 iconResId = R.drawable.vector_medicine,
                 onAddExpense = {
-                    navController?.navigate("medicine/addExpense")
+                    navController.navigate("medicine/addExpense")
                 },
                 expenseData = { expense ->
                     Triple(expense.title, expense.time, expense.amount)

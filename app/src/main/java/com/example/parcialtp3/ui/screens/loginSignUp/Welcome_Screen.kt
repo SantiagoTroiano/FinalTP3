@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.ThemeAwareColors
@@ -52,17 +54,22 @@ fun WelcomeScreen(
         headerContent = { Title() },
         panelContent = {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
                 RoundedInputField(
-                    label = "Username or Email",
-                    placeholder = "example@example.com",
+                    label = stringResource(R.string.username_or_email),
+                    placeholder = stringResource(R.string.placeholder_email),
                     modifier = Modifier.padding(top = 60.dp),
                     onTextChanged = { email = it }
                 )
+
                 Spacer(Modifier.height(30.dp))
+
                 RoundedPassInput(onTextChanged = { pass = it })
+
                 Spacer(Modifier.height(80.dp))
+
                 RoundedButton(
-                    text = "Log In",
+                    text = stringResource(R.string.log_in),
                     width = 207.dp,
                     height = 45.dp,
                     backgroundColor = CaribbeanGreen,
@@ -70,21 +77,24 @@ fun WelcomeScreen(
                     navController = navController,
                     route = "HomeScreen"
                 )
+
                 val token by vm.token.collectAsState()
                 token?.let {}
 
                 Spacer(Modifier.height(15.dp))
+
                 SimpleText(
-                    "Forgot Password?",
+                    text = stringResource(R.string.forgot_password),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp,
                     navController = navController,
                     route = "ForgotPasswordScreen"
                 )
+
                 Spacer(Modifier.height(15.dp))
 
                 RoundedButton(
-                    text = "Sign Up",
+                    text = stringResource(R.string.sign_up),
                     width = 207.dp,
                     height = 45.dp,
                     backgroundColor = LightGreen,
@@ -92,22 +102,24 @@ fun WelcomeScreen(
                     navController = navController,
                     route = "CreateAccountScreen"
                 )
+
                 Spacer(Modifier.height(25.dp))
+
                 Text(
                     text = buildAnnotatedString {
-                        pushStyle(SpanStyle(color = themeColors.normalText))
-                        append("Use ")
+                        append(stringResource(R.string.fingerprint_phrase_use))
                         withStyle(style = SpanStyle(color = themeColors.highlightText)) {
-                            append("Fingerprint")
+                            append(stringResource(R.string.fingerprint_phrase_word))
                         }
-                        append(" To Access")
-                        pop()
+                        append(stringResource(R.string.fingerprint_phrase_end))
                     },
                     fontFamily = PoppinsFamily,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 14.sp
                 )
+
                 Spacer(Modifier.height(25.dp))
+
                 FacebookGoogle(navController)
             }
         }
@@ -116,5 +128,9 @@ fun WelcomeScreen(
 
 @Composable
 private fun Title() {
-    TitleText("Welcome", fontWeight = FontWeight.SemiBold, modifier = Modifier.padding(top = 18.dp))
+    TitleText(
+        text = stringResource(R.string.welcome_title),
+        fontWeight = FontWeight.SemiBold,
+        modifier = Modifier.padding(top = 18.dp)
+    )
 }

@@ -1,8 +1,10 @@
 package com.example.parcialtp3.ui.screens.categories.saving
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -45,29 +48,45 @@ fun SavingsScreen(
 
     var showAddCategoryDialog by remember { mutableStateOf(false) }
 
-
     val primaryColor = Color(0xFF006BFF)
     val secondaryColor = Color(0xFF87C8FF)
 
     val categories = listOf(
-        SavingCategoryUi("travel", "Travel", R.drawable.vector_plane, true, direccion = "travel"),
-        SavingCategoryUi("new_house", "New House", R.drawable.vector_newhouse, direccion = "newHouse"),
-        SavingCategoryUi("car", "Car", R.drawable.vector_car, direccion = "car"),
-        SavingCategoryUi("wedding", "Wedding", R.drawable.vector_wedding, direccion = "wedding"),
+        SavingCategoryUi(
+            "travel",
+            title = stringResource(R.string.travel),
+            iconRes = R.drawable.vector_plane,
+            isPrimary = true,
+            direccion = "travel"
+        ),
+        SavingCategoryUi(
+            "new_house",
+            title = stringResource(R.string.new_house),
+            iconRes = R.drawable.vector_newhouse,
+            direccion = "newHouse"
+        ),
+        SavingCategoryUi(
+            "car",
+            title = stringResource(R.string.car),
+            iconRes = R.drawable.vector_car,
+            direccion = "car"
+        ),
+        SavingCategoryUi(
+            "wedding",
+            title = stringResource(R.string.wedding),
+            iconRes = R.drawable.vector_wedding,
+            direccion = "wedding"
+        ),
     )
 
     if (showAddCategoryDialog) {
         AddCategoryDialog(
-            onDismissRequest = {
-                showAddCategoryDialog = false
-            },
+            onDismissRequest = { showAddCategoryDialog = false },
             onConfirm = { categoryName ->
-
                 showAddCategoryDialog = false
             }
         )
     }
-
 
     BackgroundScaffold(
         navController = navController,
@@ -75,7 +94,7 @@ fun SavingsScreen(
         headerContent = {
             Column {
                 HeaderBar(
-                    title = "Savings",
+                    title = stringResource(R.string.savings),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )
@@ -85,42 +104,50 @@ fun SavingsScreen(
         },
         panelContent = {
             Column(
-                Modifier
-                    .fillMaxSize()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 18.dp)
+                    .padding(bottom = 120.dp) // para que no lo tape el BottomNav
             ) {
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(3),
-                    verticalArrangement = Arrangement.spacedBy(20.dp),
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    contentPadding = PaddingValues(bottom = 32.dp),
-                    modifier = Modifier.weight(1f)
-                ) {
-                    items(categories) { item ->
-                        CategoryGridItem(
-                            title = item.title,
-                            iconRes = item.iconRes,
-                            backgroundColor = if (item.isPrimary) primaryColor else secondaryColor,
-                            onClick = {
-                                navController.navigate(item.direccion)
+
+                categories.chunked(3).forEach { rowItems ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+
+                        rowItems.forEach { item ->
+                            Box(modifier = Modifier.weight(1f)) {
+                                CategoryGridItem(
+                                    title = item.title,
+                                    iconRes = item.iconRes,
+                                    backgroundColor = if (item.isPrimary) primaryColor else secondaryColor,
+                                    onClick = { navController.navigate(item.direccion) }
+                                )
                             }
-                        )
+                        }
+
+                        repeat(3 - rowItems.size) {
+                            Spacer(modifier = Modifier.weight(1f))
+                        }
                     }
+
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
 
-                PrimaryButton(
-                    text = "Add More",
+                Spacer(modifier = Modifier.height(16.dp))
 
-                    onClick = {
-                        showAddCategoryDialog = true
-                    },
-
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, bottom = 8.dp)
-                        .wrapContentWidth(Alignment.CenterHorizontally)
-                )
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.add_more),
+                        onClick = { showAddCategoryDialog = true }
+                    )
+                }
             }
         }
+
     )
 }

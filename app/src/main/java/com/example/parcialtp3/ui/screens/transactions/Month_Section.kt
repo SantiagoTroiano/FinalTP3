@@ -13,16 +13,27 @@ import androidx.compose.ui.unit.sp
 import com.example.parcialtp3.ui.components.Transaction
 
 @Composable
-fun MonthSection(monthName: String, transactions: List<Transaction>) {
-    Column(modifier = Modifier.padding(16.dp)) {
+fun MonthSection(
+    monthName: String,
+    transactions: List<Transaction>
+) {
+    Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 14.dp)) {
+
         Text(
             text = monthName,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp
         )
+
         Spacer(modifier = Modifier.height(8.dp))
-        for (transaction in transactions) {
-            Text(text = "${transaction.title} - ${transaction.value}")
+
+        transactions.forEach { transaction ->
+            Text(
+                text = "${transaction.title}  -  ${transaction.value}",
+                fontSize = 14.sp
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
         }
     }
 }

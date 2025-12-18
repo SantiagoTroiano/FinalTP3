@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -47,52 +48,53 @@ data class NotificationItem(
 
 @Composable
 fun NotificationScreen(navController: NavHostController) {
+
     val notifications = listOf(
         NotificationItem(
             R.drawable.ic_campana,
-            "Reminder!",
-            "Set up your automatic savings to meet your savings goal…",
+            stringResource(R.string.notif_reminder_title),
+            stringResource(R.string.notif_reminder_message),
             "17:00 – April 24",
-            section = "Today"
+            section = stringResource(R.string.notifications_section_today)
         ),
         NotificationItem(
             R.drawable.ic_estrella,
-            "New Update",
-            "Set up your automatic savings to meet your savings goal…",
+            stringResource(R.string.notif_update_title),
+            stringResource(R.string.notif_update_message),
             "17:00 – April 24",
-            section = "Today"
+            section = stringResource(R.string.notifications_section_today)
         ),
         NotificationItem(
             R.drawable.ic_plata,
-            "Transactions",
-            "A new transaction has been registered",
+            stringResource(R.string.notif_transactions_title),
+            stringResource(R.string.notif_transactions_message),
             "17:00 – April 24",
             category = "Groceries | Pantry",
             amount = "-$100,00",
-            section = "Yesterday"
+            section = stringResource(R.string.notifications_section_yesterday)
         ),
         NotificationItem(
             R.drawable.ic_campana,
-            "Reminder!",
-            "Set up your automatic savings to meet your savings goal…",
+            stringResource(R.string.notif_reminder_title),
+            stringResource(R.string.notif_reminder_message),
             "17:00 – April 24",
-            section = "Yesterday"
+            section = stringResource(R.string.notifications_section_yesterday)
         ),
         NotificationItem(
             R.drawable.ic_flecha_mirando_abajo,
-            "Expense Record",
-            "We recommend that you be more attentive to your finances.",
+            stringResource(R.string.notif_expense_record_title),
+            stringResource(R.string.notif_expense_record_message),
             "17:00 – April 24",
-            section = "This Weekend"
+            section = stringResource(R.string.notifications_section_weekend)
         ),
         NotificationItem(
             R.drawable.ic_plata,
-            "Transactions",
-            "A new transaction has been registered",
+            stringResource(R.string.notif_transactions_title),
+            stringResource(R.string.notif_transactions_message),
             "17:00 – April 24",
             category = "Food | Dinner",
             amount = "-$70,40",
-            section = "This Weekend"
+            section = stringResource(R.string.notifications_section_weekend)
         )
     )
 
@@ -109,34 +111,32 @@ fun NotificationScreen(navController: NavHostController) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Notification",
+                text = stringResource(R.string.notifications_title),
                 color = Void,
                 fontFamily = poppinsFamily,
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
 
-            // Flecha atrás
             Image(
                 painter = painterResource(id = R.drawable.bring_back),
-                contentDescription = "Back",
+                contentDescription = stringResource(R.string.notif_back),
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .size(26.dp)
                     .clickable { navController.popBackStack() }
             )
 
-            // Campana
             Image(
                 painter = painterResource(id = R.drawable.ic_campana),
-                contentDescription = "Bell",
+                contentDescription = stringResource(R.string.notif_bell),
                 modifier = Modifier
                     .align(Alignment.CenterEnd)
                     .size(26.dp)
             )
         }
 
-        // Contenedor redondeado inferior (contenido principal)
+        // Content
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -144,12 +144,14 @@ fun NotificationScreen(navController: NavHostController) {
                 .background(Honeydew)
                 .padding(horizontal = 16.dp, vertical = 20.dp)
         ) {
+
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 val grouped = notifications.groupBy { it.section }
                 grouped.forEach { (section, items) ->
+
                     item {
                         Text(
                             text = section,
@@ -163,7 +165,6 @@ fun NotificationScreen(navController: NavHostController) {
 
                     itemsIndexed(items) { index, notif ->
                         NotificationCard(notif)
-                        // Divider entre notificaciones del mismo grupo
                         if (index != items.lastIndex) {
                             Box(
                                 modifier = Modifier
@@ -174,7 +175,6 @@ fun NotificationScreen(navController: NavHostController) {
                         }
                     }
 
-                    // Divider adicional entre grupos (Today → Yesterday → This Weekend)
                     item {
                         Box(
                             modifier = Modifier
@@ -189,6 +189,7 @@ fun NotificationScreen(navController: NavHostController) {
         }
     }
 }
+
 
 @Composable
 fun NotificationCard(item: NotificationItem) {

@@ -3,47 +3,28 @@ package com.example.parcialtp3.ui.screens.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
-import com.example.parcialtp3.ui.CaribbeanGreen
-import com.example.parcialtp3.ui.FenceGreen
-import com.example.parcialtp3.ui.Honeydew
-import com.example.parcialtp3.ui.LightBlue
-import com.example.parcialtp3.ui.LightGreen
-import com.example.parcialtp3.ui.OceanBlue
-import com.example.parcialtp3.ui.Void
+import com.example.parcialtp3.ui.*
 import com.example.parcialtp3.ui.components.BackgroundScaffold
 import com.example.parcialtp3.ui.components.FinanceSummaryBlock
 import com.example.parcialtp3.ui.poppinsFamily
@@ -51,19 +32,39 @@ import com.example.parcialtp3.ui.viewmodels.TransactionsViewModel
 
 data class HomeTransaction(
     val iconRes: Int,
-    val title: String,
-    val subtitle: String,
-    val category: String,
-    val amount: String
+    val title: Int,
+    val subtitle: Int,
+    val category: Int,
+    val amount: Int
 )
 
 @Composable
 fun HomeScreen(navController: NavHostController) {
-    val viewModel: TransactionsViewModel = viewModel()
+
+    val viewModel: TransactionsViewModel = hiltViewModel()
+
     val transactions = listOf(
-        HomeTransaction(R.drawable.icon_salary, "Salary", "18:27 – April 30", "Monthly", "$4.000,00"),
-        HomeTransaction(R.drawable.icon_groceries, "Groceries", "17:00 – April 24", "Pantry", "-$100,00"),
-        HomeTransaction(R.drawable.icon_rent, "Rent", "8:30 – April 15", "Rent", "-$674,40")
+        HomeTransaction(
+            R.drawable.icon_salary,
+            R.string.home_tx_salary,
+            R.string.home_tx_time_salary,
+            R.string.home_tx_category_monthly,
+            R.string.home_tx_amount_salary
+        ),
+        HomeTransaction(
+            R.drawable.icon_groceries,
+            R.string.home_tx_groceries,
+            R.string.home_tx_time_groceries,
+            R.string.home_tx_category_pantry,
+            R.string.home_tx_amount_groceries
+        ),
+        HomeTransaction(
+            R.drawable.icon_rent,
+            R.string.home_tx_rent,
+            R.string.home_tx_time_rent,
+            R.string.home_tx_category_rent,
+            R.string.home_tx_amount_rent
+        )
     )
 
     var selectedFilter by remember { mutableStateOf("Monthly") }
@@ -75,6 +76,7 @@ fun HomeScreen(navController: NavHostController) {
             navController = navController,
             headerHeight = 320.dp,
             headerContent = {
+
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -82,16 +84,15 @@ fun HomeScreen(navController: NavHostController) {
                 ) {
                     Spacer(modifier = Modifier.height(1.dp))
 
-                    // Fila superior: título y botón de notificaciones
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+
                         Column {
-                            // Título principal
                             Text(
-                                text = "Hi, Welcome Back.",
+                                text = stringResource(R.string.home_hi_welcome_back),
                                 color = Void,
                                 fontFamily = poppinsFamily,
                                 fontWeight = FontWeight.Bold,
@@ -100,31 +101,25 @@ fun HomeScreen(navController: NavHostController) {
 
                             Spacer(modifier = Modifier.height(4.dp))
 
-                            // Subtítulo
                             Text(
-                                text = "Good Morning",
+                                text = stringResource(R.string.home_good_morning),
                                 color = Void,
                                 fontFamily = poppinsFamily,
-                                fontWeight = FontWeight.Normal,
                                 fontSize = 13.sp
                             )
                         }
 
-                        // Icono de notificaciones clickeable
                         Image(
                             painter = painterResource(id = R.drawable.icon_notification),
-                            contentDescription = "Notifications",
+                            contentDescription = stringResource(R.string.home_notifications_cd),
                             modifier = Modifier
                                 .size(32.dp)
-                                .clickable {
-                                    navController.navigate("notifications")
-                                }
+                                .clickable { navController.navigate("notifications") }
                         )
                     }
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Bloque financiero
                     FinanceSummaryBlock(
                         modifier = Modifier.clickable {
                             navController.navigate("account_balance")
@@ -133,19 +128,19 @@ fun HomeScreen(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(10.dp))
                 }
-            }
+            },
 
-            ,
             panelContent = {
+
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
                         .padding(horizontal = 20.dp)
                 ) {
-                    // ───── Tarjeta resumen semanal ─────
+
                     Surface(
                         color = CaribbeanGreen,
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
+                        shape = RoundedCornerShape(20.dp),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 6.dp)
@@ -157,16 +152,18 @@ fun HomeScreen(navController: NavHostController) {
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
+
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center,
                                 modifier = Modifier.weight(1f)
                             ) {
+
                                 Box(
                                     contentAlignment = Alignment.Center,
                                     modifier = Modifier.size(90.dp)
                                 ) {
-                                    // Círculo dividido mitad blanca, mitad azul
+
                                     Box(
                                         modifier = Modifier
                                             .matchParentSize()
@@ -188,7 +185,6 @@ fun HomeScreen(navController: NavHostController) {
                                         }
                                     }
 
-                                    // Ícono centrado
                                     Box(
                                         contentAlignment = Alignment.Center,
                                         modifier = Modifier
@@ -205,7 +201,12 @@ fun HomeScreen(navController: NavHostController) {
                                 }
 
                                 Spacer(modifier = Modifier.height(4.dp))
-                                Text("Savings\nOn Goals", color = Void, fontFamily = poppinsFamily)
+
+                                Text(
+                                    stringResource(R.string.home_savings_on_goals),
+                                    color = Void,
+                                    fontFamily = poppinsFamily
+                                )
                             }
 
                             Box(
@@ -221,6 +222,7 @@ fun HomeScreen(navController: NavHostController) {
                                     .padding(start = 10.dp),
                                 verticalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
+
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Image(
                                         painter = painterResource(id = R.drawable.ic_salary),
@@ -228,9 +230,18 @@ fun HomeScreen(navController: NavHostController) {
                                         modifier = Modifier.size(22.dp)
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
+
                                     Column {
-                                        Text("Revenue Last Week", color = Void, fontFamily = poppinsFamily)
-                                        Text("$4.000,00", color = FenceGreen, fontFamily = poppinsFamily)
+                                        Text(
+                                            stringResource(R.string.home_revenue_last_week),
+                                            color = Void,
+                                            fontFamily = poppinsFamily
+                                        )
+                                        Text(
+                                            stringResource(R.string.home_revenue_amount),
+                                            color = FenceGreen,
+                                            fontFamily = poppinsFamily
+                                        )
                                     }
                                 }
 
@@ -248,26 +259,33 @@ fun HomeScreen(navController: NavHostController) {
                                         modifier = Modifier.size(22.dp)
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
+
                                     Column {
-                                        Text("Food Last Week", color = Void, fontFamily = poppinsFamily)
-                                        Text("-$100,00", color = OceanBlue, fontFamily = poppinsFamily)
+                                        Text(
+                                            stringResource(R.string.home_food_last_week),
+                                            color = Void,
+                                            fontFamily = poppinsFamily
+                                        )
+                                        Text(
+                                            stringResource(R.string.home_food_amount),
+                                            color = OceanBlue,
+                                            fontFamily = poppinsFamily
+                                        )
                                     }
                                 }
                             }
                         }
                     }
 
-
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // ───── Filtros ─────
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 12.dp)
                             .background(
                                 color = LightGreen,
-                                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
+                                shape = RoundedCornerShape(24.dp)
                             )
                             .padding(horizontal = 6.dp, vertical = 6.dp)
                     ) {
@@ -276,11 +294,18 @@ fun HomeScreen(navController: NavHostController) {
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            listOf("Daily", "Weekly", "Monthly").forEach { label ->
+
+                            listOf(
+                                stringResource(R.string.home_filter_daily),
+                                stringResource(R.string.home_filter_weekly),
+                                stringResource(R.string.home_filter_monthly),
+                            ).forEach { label ->
+
                                 val isSelected = selectedFilter == label
+
                                 Surface(
                                     color = if (isSelected) CaribbeanGreen else Color.Transparent,
-                                    shape = androidx.compose.foundation.shape.RoundedCornerShape(20.dp),
+                                    shape = RoundedCornerShape(20.dp),
                                     modifier = Modifier
                                         .weight(1f)
                                         .height(46.dp)
@@ -301,62 +326,64 @@ fun HomeScreen(navController: NavHostController) {
                     }
 
                     Spacer(modifier = Modifier.height(10.dp))
-                    // ───── Transacciones ────
-                    LazyColumn(
+
+                    // REEMPLAZA LAZY COLUMN POR COLUMN
+                    Column(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .padding(top = 4.dp),
-                        contentPadding = PaddingValues(bottom = 100.dp)
+                            .fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 100.dp)
                     ) {
-                        items(transactions) { t ->
+
+                        transactions.forEach { t ->
+
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(vertical = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                // Ícono circular perfectamente centrado y proporcionado
+
                                 Box(
                                     modifier = Modifier
                                         .size(44.dp)
                                         .clip(CircleShape)
                                         .background(
-                                            if (t.amount.startsWith("-")) LightBlue.copy(alpha = 0.3f)
+                                            if (stringResource(t.amount).startsWith("-"))
+                                                LightBlue.copy(alpha = 0.3f)
                                             else LightGreen
                                         ),
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Image(
                                         painter = painterResource(id = t.iconRes),
-                                        contentDescription = t.title,
+                                        contentDescription = stringResource(t.title),
                                         modifier = Modifier.size(22.dp)
                                     )
                                 }
 
                                 Spacer(modifier = Modifier.width(14.dp))
 
-                                // Columna izquierda (título y subtítulo)
                                 Column(
-                                    modifier = Modifier.weight(1.3f),
-                                    verticalArrangement = Arrangement.Center
+                                    modifier = Modifier.weight(1.3f)
                                 ) {
                                     Text(
-                                        text = t.title,
+                                        text = stringResource(t.title),
                                         color = Void,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
                                         fontSize = 15.sp
                                     )
+
                                     Spacer(modifier = Modifier.height(2.dp))
+
                                     Text(
-                                        text = t.subtitle,
+                                        text = stringResource(t.subtitle),
                                         color = OceanBlue,
                                         fontFamily = poppinsFamily,
                                         fontSize = 12.sp
                                     )
                                 }
 
-                                // Línea vertical centrada
                                 Box(
                                     modifier = Modifier
                                         .width(1.dp)
@@ -364,7 +391,6 @@ fun HomeScreen(navController: NavHostController) {
                                         .background(CaribbeanGreen.copy(alpha = 0.5f))
                                 )
 
-                                // Categoría centrada
                                 Box(
                                     modifier = Modifier
                                         .weight(0.8f)
@@ -372,7 +398,7 @@ fun HomeScreen(navController: NavHostController) {
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
-                                        text = t.category,
+                                        text = stringResource(t.category),
                                         color = FenceGreen,
                                         fontFamily = poppinsFamily,
                                         fontSize = 14.sp,
@@ -380,7 +406,6 @@ fun HomeScreen(navController: NavHostController) {
                                     )
                                 }
 
-                                // Línea vertical centrada
                                 Box(
                                     modifier = Modifier
                                         .width(1.dp)
@@ -388,7 +413,6 @@ fun HomeScreen(navController: NavHostController) {
                                         .background(CaribbeanGreen.copy(alpha = 0.5f))
                                 )
 
-                                // Monto centrado
                                 Box(
                                     modifier = Modifier
                                         .weight(1f)
@@ -396,8 +420,9 @@ fun HomeScreen(navController: NavHostController) {
                                     contentAlignment = Alignment.Center
                                 ) {
                                     Text(
-                                        text = t.amount,
-                                        color = if (t.amount.startsWith("-")) OceanBlue else FenceGreen,
+                                        text = stringResource(t.amount),
+                                        color = if (stringResource(t.amount).startsWith("-"))
+                                            OceanBlue else FenceGreen,
                                         fontFamily = poppinsFamily,
                                         fontWeight = FontWeight.SemiBold,
                                         fontSize = 15.sp
@@ -405,7 +430,6 @@ fun HomeScreen(navController: NavHostController) {
                                 }
                             }
 
-                            // Divider sutil entre transacciones
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -414,8 +438,6 @@ fun HomeScreen(navController: NavHostController) {
                             )
                         }
                     }
-
-
                 }
             }
         )

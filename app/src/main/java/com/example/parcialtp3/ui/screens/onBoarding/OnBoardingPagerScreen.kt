@@ -17,8 +17,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.Honeydew
 import com.example.parcialtp3.ui.LightGreen
@@ -65,8 +67,20 @@ fun OnBoardingPagerScreen(
                         .background(
                             color = if (pagerState.currentPage == index) CaribbeanGreen else LightGreen,
                             shape = RoundedCornerShape(50)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    // Accesibilidad: descripción de la posición actual
+                    androidx.compose.foundation.layout.Box(
+                        modifier = Modifier
+                            .size(0.dp), // invisible pero descriptivo
+                        contentAlignment = Alignment.Center
+                    ) {
+                        androidx.compose.material3.Text(
+                            text = stringResource(R.string.onboarding_pager_indicator_desc)
                         )
-                )
+                    }
+                }
             }
         }
     }

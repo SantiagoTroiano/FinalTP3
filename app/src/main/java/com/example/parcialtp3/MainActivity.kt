@@ -65,8 +65,9 @@ import com.example.parcialtp3.ui.screens.transaction.TransactionScreen
 import com.example.parcialtp3.ui.screens.transactions.TransactionsExpenseScreen
 import com.example.parcialtp3.ui.screens.transactions.TransactionsIncomeScreen
 import com.example.parcialtp3.ui.screens.transactions.Transactions_Screen
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

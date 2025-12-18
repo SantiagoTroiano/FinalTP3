@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.CaribbeanGreen
 import com.example.parcialtp3.ui.LightGreen
 import com.example.parcialtp3.ui.Void
@@ -52,7 +54,7 @@ fun E_Delete_Account_Screen(
         whiteHeight = Dp.Unspecified,
         headerContent = {
             HeaderBar(
-                title = "Delete Account",
+                title = stringResource(R.string.delete_account_title),
                 navController = navController,
                 onBackClick = onBack
             )
@@ -67,7 +69,7 @@ fun E_Delete_Account_Screen(
                 Spacer(Modifier.height(12.dp))
 
                 Text(
-                    text = "Are You Sure You Want To Delete\nYour Account?",
+                    text = stringResource(R.string.delete_account_question),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = Void,
@@ -81,7 +83,7 @@ fun E_Delete_Account_Screen(
                 Spacer(Modifier.height(24.dp))
 
                 Text(
-                    text = "Please Enter Your Password To Confirm\nDeletion Of Your Account.",
+                    text = stringResource(R.string.delete_account_enter_password),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = Void,
@@ -98,7 +100,6 @@ fun E_Delete_Account_Screen(
 
                 Spacer(Modifier.height(24.dp))
 
-                // Abre modal de confirmación
                 Button(
                     onClick = { showDialog = true },
                     enabled = password.isNotEmpty(),
@@ -111,7 +112,10 @@ fun E_Delete_Account_Screen(
                         contentColor = Void
                     )
                 ) {
-                    Text("Yes, Delete Account", style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        stringResource(R.string.delete_account_confirm_button),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
 
                 Spacer(Modifier.height(12.dp))
@@ -127,7 +131,10 @@ fun E_Delete_Account_Screen(
                         contentColor = Void
                     )
                 ) {
-                    Text("Cancel", style = MaterialTheme.typography.bodyLarge)
+                    Text(
+                        stringResource(R.string.delete_account_cancel_button),
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
 
                 Spacer(Modifier.height(24.dp))
@@ -135,7 +142,6 @@ fun E_Delete_Account_Screen(
         }
     )
 
-    // Modal
     ConfirmDeleteDialog(
         visible = showDialog,
         onConfirm = {
@@ -159,7 +165,7 @@ private fun WarningCardLeftAligned() {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "This action will permanently delete all of your data, and you will not be able to recover it. Please keep the following in mind before proceeding:",
+                text = stringResource(R.string.delete_account_warning_intro),
                 color = Void,
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Start
@@ -167,11 +173,11 @@ private fun WarningCardLeftAligned() {
 
             Spacer(Modifier.height(12.dp))
 
-            BulletLeft("All your expenses, income and associated transactions will be eliminated.")
+            BulletLeft(stringResource(R.string.delete_account_warning_point1))
             Spacer(Modifier.height(8.dp))
-            BulletLeft("You will not be able to access your account or any related information.")
+            BulletLeft(stringResource(R.string.delete_account_warning_point2))
             Spacer(Modifier.height(8.dp))
-            BulletLeft("This action cannot be undone.")
+            BulletLeft(stringResource(R.string.delete_account_warning_point3))
         }
     }
 }
@@ -195,10 +201,8 @@ private fun BulletLeft(text: String) {
     }
 }
 
-
-@Preview(showBackground = true, showSystemUi = true, name = "Delete Account + Modal")
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-private fun Preview_E_Delete_Account() {
-    val nav = rememberNavController()
-    E_Delete_Account_Screen(navController = nav)
+private fun PreviewDeleteAccount() {
+    E_Delete_Account_Screen(rememberNavController())
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -31,17 +32,32 @@ fun NewHouseScreen(
     val houseIcon = R.drawable.vector_newhouse
 
     val aprilDeposits = listOf(
-        NewHouseDeposit("House Deposit", "19:56 – April 5", "$477.77", houseIcon)
+        NewHouseDeposit(
+            title = stringResource(R.string.house_deposit),
+            time = stringResource(R.string.time_19_56_april_5),
+            amount = stringResource(R.string.amount_477_77),
+            iconRes = houseIcon
+        )
     )
 
     val januaryDeposits = listOf(
-        NewHouseDeposit("House Deposit", "20:25 – January 16", "$102.67", houseIcon),
-        NewHouseDeposit("House Deposit", "15:56 – January 02", "$45.04", houseIcon)
+        NewHouseDeposit(
+            title = stringResource(R.string.house_deposit),
+            time = stringResource(R.string.time_20_25_january_16),
+            amount = stringResource(R.string.amount_102_67),
+            iconRes = houseIcon
+        ),
+        NewHouseDeposit(
+            title = stringResource(R.string.house_deposit),
+            time = stringResource(R.string.time_15_56_january_02),
+            amount = stringResource(R.string.amount_45_04),
+            iconRes = houseIcon
+        )
     )
 
     val monthSections = linkedMapOf(
-        "April" to aprilDeposits,
-        "January" to januaryDeposits
+        stringResource(R.string.april) to aprilDeposits,
+        stringResource(R.string.january) to januaryDeposits
     )
 
     BackgroundScaffold(
@@ -49,7 +65,7 @@ fun NewHouseScreen(
         headerHeight = 120.dp,
         headerContent = {
             HeaderBar(
-                title = "New House",
+                title = stringResource(R.string.new_house),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -58,10 +74,10 @@ fun NewHouseScreen(
             Column(Modifier.fillMaxWidth()) {
                 Spacer(Modifier.height(16.dp))
                 SavingsTargetSummaryGeneric(
-                    title = "New House",
+                    title = stringResource(R.string.new_house),
                     iconRes = houseIcon,
-                    goalAmount = "$569,200",
-                    savedAmount = "$625.48",
+                    goalAmount = stringResource(R.string.amount_569_200),
+                    savedAmount = stringResource(R.string.amount_625_48),
                     progressPercent = 0.30f,
                     progressColor = CaribbeanGreen,
                     modifier = Modifier.padding(horizontal = 20.dp)
@@ -73,7 +89,7 @@ fun NewHouseScreen(
                     amount = { it.amount },
                     iconRes = { it.iconRes },
                     onAddSavingsClick = {
-                         navController?.navigate("newHouse/addSavings")
+                        navController?.navigate("newHouse/addSavings")
                     }
                 )
             }

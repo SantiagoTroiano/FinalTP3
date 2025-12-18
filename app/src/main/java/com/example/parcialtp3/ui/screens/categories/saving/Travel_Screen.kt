@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -31,9 +32,24 @@ fun TravelScreen(
     val travelIcon = R.drawable.vector_plane
 
     val aprilDeposits = listOf(
-        TravelDeposit("Travel Deposit", "19:56 - April 30", "$217.77", travelIcon),
-        TravelDeposit("Travel Deposit", "17:42 - April 14", "$217.77", travelIcon),
-        TravelDeposit("Travel Deposit", "12:30 - April 02", "$217.77", travelIcon)
+        TravelDeposit(
+            title = stringResource(R.string.travel_deposit),
+            time = "19:56 - April 30",
+            amount = "$217.77",
+            iconRes = travelIcon
+        ),
+        TravelDeposit(
+            title = stringResource(R.string.travel_deposit),
+            time = "17:42 - April 14",
+            amount = "$217.77",
+            iconRes = travelIcon
+        ),
+        TravelDeposit(
+            title = stringResource(R.string.travel_deposit),
+            time = "12:30 - April 02",
+            amount = "$217.77",
+            iconRes = travelIcon
+        )
     )
 
     val monthSections = linkedMapOf(
@@ -45,7 +61,7 @@ fun TravelScreen(
         headerHeight = 170.dp,
         headerContent = {
             HeaderBar(
-                title = "Travel",
+                title = stringResource(R.string.travel),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
@@ -55,7 +71,7 @@ fun TravelScreen(
                 Spacer(Modifier.height(16.dp))
 
                 SavingsTargetSummaryGeneric(
-                    title = "Travel",
+                    title = stringResource(R.string.travel),
                     iconRes = travelIcon,
                     goalAmount = "$1,962.93",
                     savedAmount = "$653.31",

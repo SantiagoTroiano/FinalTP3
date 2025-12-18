@@ -2,24 +2,18 @@ package com.example.parcialtp3.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.parcialtp3.ui.CaribbeanGreen
-import com.example.parcialtp3.ui.Cyprus
-import com.example.parcialtp3.ui.FenceGreen
-import com.example.parcialtp3.ui.Honeydew
-import com.example.parcialtp3.ui.Void
-import com.example.parcialtp3.ui.screens.profile.ThemeViewModel
 import com.example.parcialtp3.ui.ThemeAwareColors
 
 @Composable
@@ -36,49 +30,55 @@ fun BackgroundScaffold(
     displayBottomNavBar: Boolean = true
 ) {
     val themeColors = ThemeAwareColors.getColors()
+
     Box(
         modifier = modifier
             .fillMaxSize()
             .background(themeColors.headerBackground)
     ) {
-        // HEADER
-        Box(
+
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(headerHeight),
-            contentAlignment = Alignment.TopCenter
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
         ) {
-            Box(modifier = Modifier.padding(top = 60.dp)) {
-                headerContent()
-            }
-        }
 
-        // PANEL (parte inferior)
-        val panelModifier = if (whiteHeight.isSpecified) {
-            Modifier
-                .fillMaxWidth()
-                .height(whiteHeight)
-        } else {
-            Modifier.fillMaxSize()
-        }
-
-        Surface(
-            color = themeColors.contentBackground,
-            shape = RoundedCornerShape(topStart = overlapRoundness, topEnd = overlapRoundness),
-            modifier = panelModifier
-                .padding(top = headerHeight - overlapOffset)
-                .align(Alignment.TopCenter)
-        ) {
             Box(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(headerHeight),
                 contentAlignment = Alignment.TopCenter
             ) {
-                Box(modifier = Modifier.padding(top = 20.dp)) {
+                Box(modifier = Modifier.padding(top = 60.dp)) {
+                    headerContent()
+                }
+            }
+
+            val panelModifier =
+                if (whiteHeight.isSpecified) {
+                    Modifier.fillMaxWidth().height(whiteHeight)
+                } else {
+                    Modifier.fillMaxWidth().wrapContentHeight()
+                }
+
+            Surface(
+                color = themeColors.contentBackground,
+                shape = RoundedCornerShape(topStart = overlapRoundness, topEnd = overlapRoundness),
+                modifier = panelModifier.offset(y = -overlapOffset)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp)
+                ) {
                     panelContent()
                 }
             }
+
+            Spacer(modifier = Modifier.height(120.dp))
         }
-        if(displayBottomNavBar) {
+
+        if (displayBottomNavBar) {
             Surface(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)

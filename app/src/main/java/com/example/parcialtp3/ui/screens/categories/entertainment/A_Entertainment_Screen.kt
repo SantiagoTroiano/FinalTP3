@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -28,13 +29,18 @@ fun A_Entertainment_Screen(
     navController: NavHostController
 ) {
     val aprilExpenses = listOf(
-        EntertainmentExpense("Cinema", "20:15 - April 29", "-$30,00"),
-        EntertainmentExpense("Netflix", "16:15 - April 12", "-$12,27"),
-        EntertainmentExpense("Karaoke", "18:00 - April 05", "-$10,00"),
+        EntertainmentExpense(stringResource(R.string.cinema),
+            stringResource(R.string._20_15_april_29), "-$30,00"),
+        EntertainmentExpense(stringResource(R.string.netflix),
+            stringResource(R.string._16_15_april_12), "-$12,27"),
+        EntertainmentExpense(stringResource(R.string.karaoke),
+            stringResource(R.string._18_00_april_05), "-$10,00"),
     )
     val marchExpenses = listOf(
-        EntertainmentExpense("Video Game", "20:50 - March 24", "-$60,20"),
-        EntertainmentExpense("Netflix", "16:15 - March 12", "-$12,27"),
+        EntertainmentExpense(stringResource(R.string.video_game),
+            stringResource(R.string._20_50_march_24), "-$60,20"),
+        EntertainmentExpense(stringResource(R.string.netflix),
+            stringResource(R.string._16_15_march_12), "-$12,27"),
     )
 
     // 1. Agrupa tus datos en la nueva data class
@@ -45,7 +51,7 @@ fun A_Entertainment_Screen(
 
     BackgroundScaffold(
         navController = navController,
-        headerHeight = 290.dp,
+        headerHeight = 340.dp,
         headerContent = {
             Column(
                 modifier = Modifier
@@ -53,7 +59,7 @@ fun A_Entertainment_Screen(
                     .padding(horizontal = 20.dp)
             ) {
                 HeaderBar(
-                    title = "Entertainment",
+                    title = stringResource(R.string.entertainment),
                     navController = navController,
                     onBackClick = { navController.popBackStack() }
                 )

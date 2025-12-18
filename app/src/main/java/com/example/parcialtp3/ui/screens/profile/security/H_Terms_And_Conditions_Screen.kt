@@ -1,31 +1,17 @@
 package com.example.parcialtp3.ui.screens.profile.security
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.*
+// import androidx.compose.foundation.rememberScrollState <-- NO ES NECESARIO
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+// import androidx.compose.foundation.verticalScroll <-- ESTE ERA EL CAUSANTE DEL CRASH
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -34,10 +20,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.parcialtp3.ui.CaribbeanGreen
-import com.example.parcialtp3.ui.Honeydew
-import com.example.parcialtp3.ui.LightGreen
-import com.example.parcialtp3.ui.Void
+import com.example.parcialtp3.R
+import com.example.parcialtp3.ui.*
 import com.example.parcialtp3.ui.components.BackgroundScaffold
 import com.example.parcialtp3.ui.components.HeaderBar
 
@@ -46,10 +30,12 @@ fun H_Terms_And_Conditions_Screen(
     navController: NavHostController,
     onOpenLink: (String) -> Unit = {},
     onAccept: () -> Unit = {}
-) {
+)
+{
     var accepted by remember { mutableStateOf(false) }
-    val scroll = rememberScrollState()
-    val link = "https://www.finwiseapp.de"
+    // val scroll = rememberScrollState() <-- ELIMINADO
+
+    val link = stringResource(R.string.terms_link)
 
     BackgroundScaffold(
         navController = navController,
@@ -58,7 +44,7 @@ fun H_Terms_And_Conditions_Screen(
         headerContent = {
             HeaderBar(
                 navController = navController,
-                title = "Terms And Conditions",
+                title = stringResource(R.string.terms_title),
                 onBackClick = { navController.popBackStack() }
             )
         },
@@ -67,25 +53,24 @@ fun H_Terms_And_Conditions_Screen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .navigationBarsPadding()   // deja aire para la bottom bar
+                    .navigationBarsPadding()
                     .padding(bottom = 16.dp)
             ) {
-                Spacer(Modifier.height(8.dp)) // menos margen arriba
+                Spacer(Modifier.height(8.dp))
 
-                /* ---------- CARD SCROLLABLE CON EL TEXTO ---------- */
                 Surface(
                     shape = RoundedCornerShape(24.dp),
                     color = Honeydew
                 ) {
+                    // AQUÍ ESTABA EL ERROR:
+                    // Quitamos .verticalScroll(scroll) porque el BackgroundScaffold ya tiene scroll.
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp)
-                            .verticalScroll(scroll)
                     ) {
                         Text(
-                            "Est Fugiat Assumenda Aut Reprehenderit",
-                            // título más chico
+                            text = stringResource(R.string.terms_header),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.SemiBold
@@ -95,36 +80,30 @@ fun H_Terms_And_Conditions_Screen(
 
                         Spacer(Modifier.height(8.dp))
 
-                        ParagraphSmall(
-                            "Lorem ipsum dolor sit amet, et odio officia aut voluptate internos est amet vitae ut architecto sunt non tenetur fuga ut provident vero..."
-                        )
+                        ParagraphSmall(stringResource(R.string.terms_paragraph_1))
 
                         NumberedListCompactSmall(
                             listOf(
-                                "Ea voluptates omnis aut sequi sequi.",
-                                "Est dolore quae in aliquid ducimus et autem repellendus.",
-                                "Aut ipsum Quis qui porro quasi aut minus placeat!",
-                                "Sit consequatur neque ab vitae facere."
+                                stringResource(R.string.terms_item_1),
+                                stringResource(R.string.terms_item_2),
+                                stringResource(R.string.terms_item_3),
+                                stringResource(R.string.terms_item_4)
                             )
                         )
 
-                        ParagraphSmall(
-                            "Aut quidem accusantium nam alias autem eum officiis placeat et omnis autem id officiis perspiciatis qui corrupti officia eum aliquam provident..."
-                        )
+                        ParagraphSmall(stringResource(R.string.terms_paragraph_2))
 
                         BulletedListCompactSmall(
                             listOf(
-                                "Aut fuga sequi eum voluptatibus provident.",
-                                "Eos consequuntur voluptas vel amet eaque aut dignissimos velit."
+                                stringResource(R.string.terms_bullet_1),
+                                stringResource(R.string.terms_bullet_2)
                             )
                         )
 
-                        ParagraphSmall(
-                            "Vel exercitationem quam vel eligendi rerum At harum obcaecati et nostrum beatae? Ea accusantium dolores qui rerum aliquam est perferendis mollitia et ipsum ipsa qui enim autem At corporis sunt."
-                        )
+                        ParagraphSmall(stringResource(R.string.terms_paragraph_3))
 
                         val annotated = buildAnnotatedString {
-                            append("Read the terms and conditions in more detail at ")
+                            append(stringResource(R.string.terms_read_more_prefix) + " ")
                             withStyle(
                                 SpanStyle(
                                     color = CaribbeanGreen,
@@ -132,6 +111,7 @@ fun H_Terms_And_Conditions_Screen(
                                 )
                             ) { append(link) }
                         }
+
                         Text(
                             text = annotated,
                             style = MaterialTheme.typography.bodySmall,
@@ -141,7 +121,6 @@ fun H_Terms_And_Conditions_Screen(
                     }
                 }
 
-                /* ---------- CHECKBOX + BOTÓN (FUERA DEL SCROLL) ---------- */
                 Spacer(Modifier.height(12.dp))
 
                 Row(
@@ -154,8 +133,8 @@ fun H_Terms_And_Conditions_Screen(
                         colors = CheckboxDefaults.colors(checkedColor = CaribbeanGreen)
                     )
                     Text(
-                        "I accept all the terms and conditions",
-                        style = MaterialTheme.typography.bodySmall, // texto más chico
+                        text = stringResource(R.string.terms_accept_checkbox),
+                        style = MaterialTheme.typography.bodySmall,
                         color = Void
                     )
                 }
@@ -178,7 +157,7 @@ fun H_Terms_And_Conditions_Screen(
                     )
                 ) {
                     Text(
-                        "Accept",
+                        text = stringResource(R.string.terms_accept_button),
                         style = MaterialTheme.typography.bodySmall.copy(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold
@@ -190,13 +169,11 @@ fun H_Terms_And_Conditions_Screen(
     )
 }
 
-/* -------- Helpers -------- */
-
 @Composable
 private fun ParagraphSmall(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.bodySmall, // más chico
+        style = MaterialTheme.typography.bodySmall,
         color = Void,
         lineHeight = 16.sp
     )
@@ -206,9 +183,9 @@ private fun ParagraphSmall(text: String) {
 @Composable
 private fun NumberedListCompactSmall(items: List<String>) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        items.forEachIndexed { idx, it ->
+        items.forEachIndexed { idx, itemText ->
             Text(
-                text = "${idx + 1}. $it",
+                text = "${idx + 1}. $itemText",
                 style = MaterialTheme.typography.bodySmall,
                 color = Void
             )
@@ -220,9 +197,9 @@ private fun NumberedListCompactSmall(items: List<String>) {
 @Composable
 private fun BulletedListCompactSmall(items: List<String>) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        items.forEach { it ->
+        items.forEach { itemText ->
             Text(
-                text = "• $it",
+                text = "• $itemText",
                 style = MaterialTheme.typography.bodySmall,
                 color = Void
             )

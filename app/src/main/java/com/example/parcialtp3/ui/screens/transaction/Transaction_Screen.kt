@@ -3,12 +3,16 @@ package com.example.parcialtp3.ui.screens.transaction
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.example.parcialtp3.R
 import com.example.parcialtp3.ui.Honeydew
 import com.example.parcialtp3.ui.components.BackgroundScaffold
 import com.example.parcialtp3.ui.components.FinanceSummaryBlock
@@ -22,7 +26,7 @@ import com.example.parcialtp3.ui.viewmodels.TransactionsViewModel
 fun TransactionScreen(
     navController: NavHostController
 ) {
-    val viewModel: TransactionsViewModel = viewModel()
+    val viewModel: TransactionsViewModel = hiltViewModel()
 
     BackgroundScaffold(
         navController = navController,
@@ -33,28 +37,31 @@ fun TransactionScreen(
         },
         panelContent = {
             TransactionsMonthSection(viewModel = viewModel)
-        },
+        }
     )
 }
+
 
 @Composable
 fun TransactionHeader(navController: NavHostController) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxWidth()   // ← ANTES fillMaxSize()
     ) {
         HeaderBar(
-            title = "Transaction",
+            title = stringResource(R.string.transaction_title),
             navController = navController,
             onBackClick = { navController.popBackStack() }
         )
 
         TarjetaBalance(
             backgroundColor = Honeydew,
-            text1 = "Total Balance",
+            text1 = stringResource(R.string.transaction_total_balance),
             text2 = "$7,783.00"
         )
 
         FinanceSummaryBlock()
-        Spacer(modifier = Modifier.weight(1f))
+
+        // ❌ ANTES: Spacer(modifier = Modifier.weight(1f))
+        // No hace falta estirar el header, esto rompe el scroll.
     }
 }

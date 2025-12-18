@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.parcialtp3.R
@@ -39,50 +41,46 @@ fun Medicine_Add_Expenses_Screen(
         headerHeight = 180.dp,
         headerContent = {
             HeaderBar(
-                title = "Add Expenses",
+                title = stringResource(R.string.add_expenses),
                 navController = navController,
                 onBackClick = { navController.popBackStack() }
             )
         },
-    panelContent = {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
+        panelContent = {
+
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .verticalScroll(rememberScrollState())
+                    .fillMaxWidth()
                     .padding(horizontal = 20.dp, vertical = 16.dp)
             ) {
+
                 RoundedInputRow(
-                    label = "Date",
-                    value = "April 30, 2024",
+                    label = stringResource(R.string.date),
+                    value = stringResource(R.string.april_30_2024),
                     valueColor = Void,
                     trailing = {
                         Box(
                             modifier = Modifier
+                                .size(30.dp)
                                 .clip(CircleShape)
-                                .background(CaribbeanGreen)
-                                .height(30.dp)
-                                .padding(4.dp),
+                                .background(CaribbeanGreen),
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.vector_calendar),
                                 contentDescription = null,
                                 tint = FenceGreen,
-                                modifier = Modifier
-                                    .padding(horizontal = 4.dp)
+                                modifier = Modifier.size(16.dp)
                             )
                         }
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Category",
-                    value = "Select the category",
+                    label = stringResource(R.string.category),
+                    value = stringResource(R.string.select_the_category),
                     valueColor = Cyprus,
                     trailing = {
                         Icon(
@@ -91,38 +89,41 @@ fun Medicine_Add_Expenses_Screen(
                         )
                     }
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Amount",
-                    value = "$2,00",
+                    label = stringResource(R.string.amount),
+                    value = stringResource(R.string.amount_minus_2_00),
                     valueColor = Void
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 RoundedInputRow(
-                    label = "Expense Title",
-                    value = "Acetaminophen",
+                    label = stringResource(R.string.expense_title),
+                    value = stringResource(R.string.acetaminophen),
                     valueColor = Void
                 )
+
                 Spacer(modifier = Modifier.height(16.dp))
 
-                MessageBox(label = "Enter Message")
-                Spacer(modifier = Modifier.height(12.dp))
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 26.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                PrimaryButton(
-                    text = "Save",
-                    onClick = {  }
+                MessageBox(
+                    label = stringResource(R.string.enter_message)
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    PrimaryButton(
+                        text = stringResource(R.string.save),
+                        onClick = { }
+                    )
+                }
             }
         }
-    })
+    )
 }
-

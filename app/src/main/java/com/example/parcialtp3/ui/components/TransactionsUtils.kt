@@ -52,12 +52,10 @@ fun MonthSection(monthName: String, transactions: List<Transaction>) {
             modifier = Modifier.padding(start = 16.dp, bottom = 8.dp)
         )
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(max = 600.dp)
+        Column(
+            modifier = Modifier.fillMaxWidth()
         ) {
-            items(transactions) { t ->
+            transactions.forEach { t ->
                 TransactionItem(
                     iconRes = t.iconRes,
                     title = t.title,
@@ -68,6 +66,7 @@ fun MonthSection(monthName: String, transactions: List<Transaction>) {
                 )
             }
         }
+
     }
 }
 data class Transaction(
